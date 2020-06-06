@@ -1,0 +1,53 @@
+# Default Timezone
+php_value date.timezone 'Asia/kolkata'
+
+# Disables Error Reporting on Screen
+#php_value display_errors Off 
+
+DirectoryIndex index.php
+
+
+
+RewriteEngine on
+
+# Rewrite URLs
+
+# Admin Accounts
+RewriteRule admin/auth/account/new backend/php/dac/controller.admin.accounts.auth.php?action=ADMIN_AUTH_ADDNEWACCOUNT  [L,QSA]
+RewriteRule admin/auth/account/update backend/php/dac/controller.admin.accounts.auth.php?action=ADMIN_AUTH_UPDATEACCOUNTINFO  [L,QSA]
+RewriteRule admin/auth/access backend/php/dac/controller.admin.accounts.auth.php?action=ADMIN_AUTH_LOGIN [L,QSA]
+
+# Roles
+RewriteRule admin/account/role/new backend/php/dac/controller.admin.accounts.roles.php?action=ADMIN_AUTH_ADDNEWROLE [L,QSA]
+RewriteRule admin/account/roles backend/php/dac/controller.admin.accounts.roles.php?action=ADMIN_AUTH_VIEWROLES [L,QSA]
+RewriteRule admin/account/role/delete backend/php/dac/controller.admin.accounts.roles.php?action=ADMIN_AUTH_DELETEROLE [L,QSA]
+RewriteRule admin/account/role/update backend/php/dac/controller.admin.accounts.roles.php?action=ADMIN_AUTH_UPDATEROLE [L,QSA]
+
+RewriteRule admin/app/config/view/([^/]+)$ backend/php/dac/controller.admin.app.config.php?action=APP_PROPERTY_VIEW&key=$1 [L,QSA]
+RewriteRule admin/app/config/([^/]+)/([^/]+)$ backend/php/dac/controller.admin.app.config.php?action=APP_PROPERTY_ADDUPDATE&key=$1&val=$2 [NC,L]
+
+# Customer Accounts
+RewriteRule user/list/surNames backend/php/dac/controller.user.accounts.auth.php?action=USER_LIST_SURNAMES [L,QSA]
+RewriteRule user/infoBy/mobile backend/php/dac/controller.user.accounts.auth.php?action=USER_INFOBY_BYMOBILE [L,QSA]
+RewriteRule user/auth/account/sq backend/php/dac/controller.user.accounts.auth.php?action=USER_AUTH_SECURITYQ [L,QSA]
+RewriteRule user/auth/account/verifyMobile backend/php/dac/controller.user.accounts.auth.php?action=USER_AUTH_VERIFYMOBILE [L,QSA]
+RewriteRule user/auth/account/new backend/php/dac/controller.user.accounts.auth.php?action=USER_AUTH_ADDNEWACCOUNT [L,QSA]
+RewriteRule user/auth/account/update backend/php/dac/controller.user.accounts.auth.php?action=USER_AUTH_UPDATEACCOUNTINFO [L,QSA]
+RewriteRule user/auth/access backend/php/dac/controller.user.accounts.auth.php?action=USER_AUTH_LOGIN [L,QSA]
+
+
+
+# General Pages
+RewriteRule user/auth auth-form-user.php [L,QSA]
+RewriteRule admin/auth auth-form-admin.php [L,QSA]
+
+# Admin Pages
+RewriteRule admin/manage/dashboard pages/admin-manage-dashboard.php [L,QSA]
+RewriteRule admin/manage/roles  pages/admin-manage-accounts-roles.php [L,QSA]
+RewriteRule admin/manage/accounts  pages/admin-manage-accounts-userAccounts.php [L,QSA]
+RewriteRule admin/manage/modPages  pages/admin-manage-accounts-modPages.php [L,QSA]
+RewriteRule admin/manage/accounts/accessPerm  pages/admin-manage-accounts-accessPerm.php [L,QSA]
+
+
+# Customer Pages
+RewriteRule user/manage/dashboard pages/admin-manage-dashboard.php [L,QSA]
