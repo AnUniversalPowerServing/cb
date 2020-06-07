@@ -13,4 +13,6 @@
 	return json_encode($successError);
    }
  }
+ 
+ $successErrorHandler = new SuccessErrorHandler();
 ?>

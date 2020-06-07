@@ -1,6 +1,3 @@
-<?php
-$PROJECT_URL = 'http://localhost/codeBuilder/web/';
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,16 +7,13 @@ $PROJECT_URL = 'http://localhost/codeBuilder/web/';
   <meta name="description" content="">
   <meta name="author" content="">
   <title>Manage User Accounts</title>
+  <?php include_once 'templates/app_init.php'; ?>
   <link href="<?php echo $PROJECT_URL ?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="<?php echo $PROJECT_URL ?>vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
   <link href="<?php echo $PROJECT_URL ?>vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
   <link href="<?php echo $PROJECT_URL ?>vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
   <link href="<?php echo $PROJECT_URL ?>vendor/sb-admin/css/sb-admin-2.css" rel="stylesheet">
   <link href="<?php echo $PROJECT_URL ?>vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-  <script type="text/javascript">
-   var PROJECT_URL='<?php echo $PROJECT_URL; ?>';
-   var USR_LANG='english';
-  </script>
   <script src="<?php echo $PROJECT_URL ?>vendor/jquery/jquery.min.js"></script>
   <script src="<?php echo $PROJECT_URL ?>vendor/bootstrap/js/bootstrap.min.js"></script>
   <script src="<?php echo $PROJECT_URL ?>vendor/metisMenu/metisMenu.min.js"></script>

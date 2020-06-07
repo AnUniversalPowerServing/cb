@@ -9,9 +9,9 @@
  * || 3) paramValue VARCHAR(250)                   ||
  * ================================================
  */
- class TblAppConfig {
-	 function getAppConfigParams($key,$keys){
-		$sql="SELECT * FROM admin_app_config";
+ class AdminAppConfig {
+	 function query_view_appConfigParams($key,$keys){
+		$sql="SELECT * FROM dev_app_config";
 		if($key=='multiple'){ // Multiple Keys
 		  if(count($keys)>0){
 			 $sql.=" WHERE";
@@ -28,9 +28,27 @@
 		$sql.=';';
 		return $sql;
 	 }
-	 function addOrUpdateAppParams($key,$val){
-		$sql="INSERT INTO admin_app_config(paramName, paramValue) VALUES ('".strtoupper($key)."','".$val."') ON DUPLICATE KEY UPDATE paramValue='".$val."';";
-		return $sql;
+	 function query_update_appConfigParams($paramName,$paramValue,$paramDesc){
+	   $sql="UPDATE dev_app_config SET";
+	   if(strlen($paramValue)>0){ $sql.=" paramValue='".$paramValue."',"; }
+	   if(strlen($paramDesc)>0){ $sql.=" paramDesc='".$paramDesc."',"; }
+	   $sql=chop($sql,',');
+	   $sql.=" WHERE paramName='".$paramName."';";
+	   return $sql;
+	 }
+	 
+	 function query_add_appConfigParams($paramName,$paramValue,$paramDesc){
+	   $sql="INSERT INTO dev_app_config(paramName, paramValue, paramDesc) ";
+	   $sql.="VALUES ('".strtoupper($paramName)."','".$paramValue."','".$paramDesc."');";
+	   return $sql;
+	 }
+
+	 function query_check_appConfigParamsExist($paramName){
+		return "SELECT count(*) FROM dev_app_config WHERE paramName='".$paramName."';";
+	 }
+	 
+	 function query_delete_appConfigParams($paramName){
+	   return "DELETE FROM dev_app_config WHERE paramName='".$paramName."';";
 	 }
  }
 ?>

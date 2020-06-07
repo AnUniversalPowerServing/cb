@@ -1,6 +1,3 @@
-<?php
-$PROJECT_URL = 'http://localhost/codeBuilder/web/';
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +7,7 @@ $PROJECT_URL = 'http://localhost/codeBuilder/web/';
   <meta name="description" content="">
   <meta name="author" content="">
   <title>Manage User Accounts</title>
+  <?php include_once 'templates/app_init.php'; ?>
   <link href="<?php echo $PROJECT_URL ?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="<?php echo $PROJECT_URL ?>vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
   <link href="<?php echo $PROJECT_URL ?>vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">

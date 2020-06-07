@@ -272,6 +272,15 @@ textarea { min-height:100px; }
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+						<li>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Developers<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+								<li>
+                                    <a href="<?php echo $PROJECT_URL.'developer/app/config'; ?>">App Config</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
                         <li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">

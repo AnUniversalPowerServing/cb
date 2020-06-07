@@ -10,8 +10,6 @@ Logger::configure('../config/log-config.xml');
 $APP_MSG_ERROR = 'ERROR';
 $APP_MSG_SUCCESS = 'SUCCESS';
 
-$successErrorHandler = new SuccessErrorHandler();
-
 /* Database Credentials */
 $DB_MLHBASIC_SERVERNAME="localhost:3306";
 $DB_MLHBASIC_NAME="exam";
