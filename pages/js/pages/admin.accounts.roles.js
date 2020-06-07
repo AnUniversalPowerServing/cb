@@ -151,8 +151,8 @@ function submit_manage_adminRoles_create(){
  if(roleName.length>0 && roleDesc.length>0){
 	adminRolesEndpoints.create_newRole({role:roleName,roleDesc:roleDesc}, function(response){ 
 	 manage_adminRoles_view();
-     VALIDATION_MESSAGE_ERROR='New Role Added Successfully. ';
-     show_validate_msg('success',manage_adminRoles_htmlElements.manage_adminRoles_add_warnErrorMsg);
+     VALIDATION_MESSAGE_ERROR=response.statusDesc;
+     show_validate_msg(response.status.toLowerCase(),manage_adminRoles_htmlElements.manage_adminRoles_add_warnErrorMsg);
 	 $('#'+manage_adminRoles_htmlElements.manage_adminRoles_add_roleName).val('');
      $('#'+manage_adminRoles_htmlElements.manage_adminRoles_add_roleDesc).val('');
 	 bootstrap_formField_trigger('remove',[manage_adminRoles_htmlElements.manage_adminRoles_add_roleName,
@@ -176,7 +176,11 @@ function submit_manage_adminRoles_delete(role_Id, roleName){
   adminRolesEndpoints.delete_accountRole({role_Id:role_Id, role:roleName },function(response){
 	  manage_adminRoles_view();
 	  $('#'+manage_adminRoles_htmlElements.manage_adminRoles_deleteExistingRoleModal).modal('hide');
-	  alert_display_success(response.statusDesc, '#');
+	  if(response.status.toLowerCase()==='success'){
+	    alert_display_success(response.statusDesc, '#');
+	  } else {
+		 alert_display_error(response.statusDesc);
+	  }
   });
 }
 
@@ -227,8 +231,8 @@ function submit_manage_adminRoles_update(){
   if(roleName.length>0 && roleDesc.length>0){
 	adminRolesEndpoints.update_accountRole({ role_Id:roleId, role:roleName, roleDesc:roleDesc },function(response){
 	 manage_adminRoles_view();
-     VALIDATION_MESSAGE_ERROR='Updated Role Successfully. ';
-     show_validate_msg('success',manage_adminRoles_htmlElements.manage_adminRoles_update_warnErrorMsg);
+     VALIDATION_MESSAGE_ERROR=response.statusDesc;;
+     show_validate_msg(response.status.toLowerCase(),manage_adminRoles_htmlElements.manage_adminRoles_update_warnErrorMsg);
 	 bootstrap_formField_trigger('remove',[manage_adminRoles_htmlElements.manage_adminRoles_update_roleName,
 			manage_adminRoles_htmlElements.manage_adminRoles_update_roleDesc]);	 
     });

@@ -13,8 +13,13 @@
 	   $role = strtoupper($_POST["role"]);
 	   $roleDesc = $_POST["roleDesc"];
 	   $adminAccountRoles = new AdminAccountRoles();
-	   $query = $adminAccountRoles->query_add_newRole($role, $roleDesc);
-	   echo $database->addupdateData($query,"Added New Role Successfully"); 
+	   $query1 = $adminAccountRoles->query_verify_roleExists($role);
+	   if(intval(json_decode($database->getJSONData($query1))[0]->{'count(*)'})==0){
+	     $query2 = $adminAccountRoles->query_add_newRole($role, $roleDesc);
+	     echo $database->addupdateData($query2,"Added New Role <b>\"".$role."\"</b> Successfully. "); 
+	   } else {
+		  echo $successErrorHandler->successErrorInfo($APP_MSG_ERROR,"Role Name <b>\"".$role."\"</b> already Exists. Please try with other Role Name. ");
+	   }
 	 } else {
 	   $missParam = '';
 	   if(!isset($_POST["role"])){ $missParam.='role,'; }
@@ -51,7 +56,7 @@
 		  $roleDesc = $_POST["roleDesc"];
 		  $adminAccountRoles = new AdminAccountRoles();
 		  $query=$adminAccountRoles->query_update_adminAccountsByrole($role_Id,$role,$roleDesc);
-		  echo $database->addupdateData($query,"Updated User Role Successfully. "); 
+		  echo $database->addupdateData($query,"Updated User Role <b>\"".$role."\"</b> Successfully. "); 
 	   } else { 
 	      $missParam = '';
 	      if(!isset($_POST["role_Id"])){ $missParam.='role_Id,'; }

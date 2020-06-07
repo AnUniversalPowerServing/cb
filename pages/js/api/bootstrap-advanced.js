@@ -364,14 +364,13 @@ var modalDivision = document.createElement("div");
  document.getElementById("alertWarningModal").innerHTML=content;
  $('#alertWarningModal').modal();
 }
-function alert_display_warning(warning_Id){
-js_ajax("GET",PROJECT_URL+'backend/config/warning_messages.json',{},function(response){
+function alert_display_warning(warning_msg){
 var content='<div class="modal-dialog">';
 	content+='<div class="modal-content">';
     content+='<div class="modal-body" style="padding:0px;">';
     content+='<div class="alert alert-warning alert-dismissible" style="margin-bottom:0px;">';
     content+='<a href="#" class="close" data-dismiss="modal" aria-label="close">&times;</a>';
-    content+='<strong>Warning!</strong> '+response[warning_Id][USR_LANG];
+    content+='<strong>Warning!</strong> '+warning_msg;
     content+='</div>';
     content+='</div>';
     content+='</div>';
@@ -383,7 +382,25 @@ var modalDivision = document.createElement("div");
  document.body.appendChild(modalDivision);  
  document.getElementById("alertWarningModal").innerHTML=content;
  $('#alertWarningModal').modal();
-});
+}
+function alert_display_error(error_msg){
+var content='<div class="modal-dialog">';
+	content+='<div class="modal-content">';
+    content+='<div class="modal-body" style="padding:0px;">';
+    content+='<div class="alert alert-warning alert-dismissible" style="margin-bottom:0px;">';
+    content+='<a href="#" class="close" data-dismiss="modal" aria-label="close">&times;</a>';
+    content+='<strong>Warning!</strong> '+error_msg;
+    content+='</div>';
+    content+='</div>';
+    content+='</div>';
+    content+='</div>';
+var modalDivision = document.createElement("div"); 
+    modalDivision.setAttribute("id", "alertErrorModal");
+	modalDivision.setAttribute("class", "modal fade");
+	modalDivision.setAttribute("role", "dialog");
+ document.body.appendChild(modalDivision);  
+ document.getElementById("alertErrorModal").innerHTML=content;
+ $('#alertErrorModal').modal();
 }
 function alert_display_success(success_msg,success_url){
 var content='<div class="modal-dialog">';

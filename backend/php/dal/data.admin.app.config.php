@@ -43,7 +43,7 @@
 	   return $sql;
 	 }
 
-	 function query_check_appConfigParamsExist($paramName){
+	 function query_verify_appConfigParamsExist($paramName){
 		return "SELECT count(*) FROM dev_app_config WHERE paramName='".$paramName."';";
 	 }
 	 

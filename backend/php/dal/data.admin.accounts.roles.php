@@ -1,7 +1,11 @@
 <?php
 class AdminAccountRoles {
-  function query_verify_roleExists($role_Id){
+  function query_verify_roleIdExists($role_Id){
 	return "SELECT * FROM admin_accounts_roles WHERE role_Id=".$role_Id;
+  }
+  
+  function query_verify_roleExists($role){
+	return "SELECT count(*) FROM admin_accounts_roles WHERE role='".$role."';";
   }
   
   function query_add_newRole($role, $roleDesc){

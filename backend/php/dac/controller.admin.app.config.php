@@ -39,7 +39,7 @@
 		$paramDesc = $_POST["paramDesc"];
 		$adminAppConfig = new AdminAppConfig();
 		
-		$query1 = $adminAppConfig->query_check_appConfigParamsExist($paramName);
+		$query1 = $adminAppConfig->query_verify_appConfigParamsExist($paramName);
 		if(intval(json_decode($database->getJSONData($query1))[0]->{'count(*)'})==0){
 		  $query2 = $adminAppConfig->query_add_appConfigParams($paramName,$paramValue,$paramDesc);
 		  echo $database->addupdateData($query2,"Parameter <b>\"".$paramName."\"</b> added Successfully. ");
