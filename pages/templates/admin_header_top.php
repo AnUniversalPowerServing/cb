@@ -255,10 +255,10 @@ textarea { min-height:100px; }
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="<?php echo $PROJECT_URL.'admin/manage/dashboard'; ?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="<?php echo $PROJECT_URL.'admin/manage/dashboard'; ?>"><i class="fa fa-dashboard fa-fw"></i> <b>Dashboard</b></a>
                         </li>
 						<li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Manage Accounts<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> <b>Manage Accounts</b><span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
 								<li>
                                     <a href="<?php echo $PROJECT_URL.'admin/manage/accounts'; ?>">User Accounts</a>
@@ -273,10 +273,28 @@ textarea { min-height:100px; }
                             <!-- /.nav-second-level -->
                         </li>
 						<li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Developers<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> <b>Developers</b><span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
 								<li>
                                     <a href="<?php echo $PROJECT_URL.'developer/app/config'; ?>">App Config</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+						<li>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> <b>App Marketing</b><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+								<li>
+                                    <a href="<?php echo $PROJECT_URL; ?>">Future Customers</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+						<li>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Customer Support<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+								<li>
+                                    <a href="<?php echo $PROJECT_URL; ?>">User Accounts</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

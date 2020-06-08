@@ -1,23 +1,7 @@
 
 // Purple, Navy Blue, Browish-Red, Browish, Blue, Pale-Green,  Dark-Grey, Orange, Grey, Pink
 var darkColors = ["#6B5B95","#31708F","#B35048","#8B6F47","#0388C3","#009688","#607D8B","#CC7900","#656363", "#A9345C"];
-
-class AdminAccountsRolesData {
-	
-  adminRolesResponse = {};
-  
-  constructor() {
-	 console.log(this.adminRolesResponse);
-  }
-  
-  get_adminRolesResponse(){
-	return this.adminRolesResponse;
-  }
-  
-  set_adminRolesResponse(response){
-	this.adminRolesResponse = response;
-  }
-}
+var ADMINROLES_RESPONSE = {};
 
 class AdminAccountsRolesUI {
 	
@@ -25,7 +9,7 @@ class AdminAccountsRolesUI {
     adminRolesEndpoints.viewInfo_accountRoles({},function(response){
 	 var content='';
 	 var colorIndex = 0;
-	 adminAccountsRolesData.set_adminRolesResponse(response);
+	 ADMINROLES_RESPONSE = response;
 	 for(var index=0;index<response.length;index++){  
 	  if(darkColors.length === colorIndex){ colorIndex = 0; }
 	  content+='<div class="col-lg-4">';
@@ -45,7 +29,7 @@ class AdminAccountsRolesUI {
   }
   
   ui_adminRoles_deleteForm(id,index){
-	var adminRolesResponse = adminAccountsRolesData.get_adminRolesResponse();
+	var adminRolesResponse = ADMINROLES_RESPONSE;
 	var content='<div class="modal-dialog">';
 		content+='<div class="modal-content">';
 		content+='<div class="modal-header modal-header-blue">';
@@ -75,7 +59,7 @@ class AdminAccountsRolesUI {
   }
   
   ui_adminRoles_updateForm(id,index){
-	var adminRolesResponse = adminAccountsRolesData.get_adminRolesResponse();
+	var adminRolesResponse = ADMINROLES_RESPONSE;
 	var content='<div class="modal-dialog">';
 		content+='<div class="modal-content">';
 		content+='<div class="modal-header modal-header-blue">';
@@ -116,7 +100,6 @@ class AdminAccountsRolesUI {
  
 }
 var adminAccountsRolesUI = new AdminAccountsRolesUI(); // This contains UI Screens required for Admin Account Roles
-var adminAccountsRolesData = new AdminAccountsRolesData(); // This contains Data that required to present on UI for Admin Account Roles
 
 $(document).ready(function() {
  manage_adminRoles_view();
@@ -218,9 +201,12 @@ function disable_manage_adminRoles_update(){ // Shows Edit and Reset Form Button
 }
 
 function reset_manage_adminRoles_update(index){
-  var adminRolesResponse = adminAccountsRolesData.get_adminRolesResponse();
+  document.getElementById(manage_adminRoles_htmlElements.manage_adminRoles_update_warnErrorMsg).innerHTML='';
+  var adminRolesResponse = ADMINROLES_RESPONSE;
   var roleName = $('#'+manage_adminRoles_htmlElements.manage_adminRoles_update_roleName).val(adminRolesResponse[index].role);
   var roleDesc = $('#'+manage_adminRoles_htmlElements.manage_adminRoles_update_roleDesc).val(adminRolesResponse[index].roleDesc);
+  document.getElementById(manage_adminRoles_htmlElements.manage_adminRoles_update_roleName).disabled=true;
+  document.getElementById(manage_adminRoles_htmlElements.manage_adminRoles_update_roleDesc).disabled=true;
 }
 
 function submit_manage_adminRoles_update(){

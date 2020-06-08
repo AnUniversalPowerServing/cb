@@ -8,6 +8,10 @@ class AdminAccountRoles {
 	return "SELECT count(*) FROM admin_accounts_roles WHERE role='".$role."';";
   }
   
+  function query_verify_roleExistsExceptRoleId($role_Id,$role){
+	return "SELECT count(*) FROM admin_accounts_roles WHERE role='".$role."' AND NOT role_Id=".$role_Id;
+  }
+  
   function query_add_newRole($role, $roleDesc){
 	return "INSERT INTO admin_accounts_roles(role, roleDesc) VALUES ('".$role."','".$roleDesc."');";
   }
