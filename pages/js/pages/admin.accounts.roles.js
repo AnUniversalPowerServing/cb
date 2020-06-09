@@ -10,6 +10,7 @@ class AdminAccountsRolesUI {
 	 var content='';
 	 var colorIndex = 0;
 	 ADMINROLES_RESPONSE = response;
+	 if(response.length>0){
 	 for(var index=0;index<response.length;index++){  
 	  if(darkColors.length === colorIndex){ colorIndex = 0; }
 	  content+='<div class="col-lg-4">';
@@ -17,18 +18,21 @@ class AdminAccountsRolesUI {
 	  content+='<div class="list-group-item" style="background-color:'+darkColors[colorIndex]+';color:#fff;">';
 	  content+='<b>'+response[index].role+'</b> <span class="pull-right">';
 	  content+='<i class="fa fa-edit curpoint" onclick="javascript:adminAccountsRolesUI.ui_adminRoles_updateForm(\'manage-adminRoles-updateExistingRoleModal\','+index+');"></i>';
-	  content+='&nbsp;&nbsp;&nbsp;<i class="fa fa-close curpoint" onclick="javascript:adminAccountsRolesUI.ui_adminRoles_deleteForm(\'manage-adminRoles-deleteExistingRoleModal\','+index+');"></i></span>';
+	  content+='&nbsp;&nbsp;&nbsp;<i class="fa fa-close curpoint" onclick="javascript:adminAccountsRolesUI.ui_adminRoles_deleteConfirmForm(\'manage-adminRoles-deleteExistingRoleModal\','+index+');"></i></span>';
 	  content+='</div>';//.list-group-item
 	  content+='<div class="list-group-item" style="background-color:#e4d1d1;">'+response[index].roleDesc+'</div>';//.list-group-item
 	  content+='</div>'; //.list-group
 	  content+='</div>';//.col-lg-4
 	  colorIndex++;
-	 }	
+	 }
+	 } else {
+		content+='<div align="center" class="col-lg-12"><hr/><div style="background-color:#efefef;padding:5px;">No User Roles Found</div><hr/></div>';
+	 }		 
 	 document.getElementById(id).innerHTML=content;
 	});
   }
   
-  ui_adminRoles_deleteForm(id,index){
+  ui_adminRoles_deleteConfirmForm(id,index){
 	var adminRolesResponse = ADMINROLES_RESPONSE;
 	var content='<div class="modal-dialog">';
 		content+='<div class="modal-content">';

@@ -1,4 +1,4 @@
-class AdminAppConfigEndpoints {
+class DevAppConfigEndpoints {
 	
   create_configParam(inputData,respFunc){
    js_ajax('POST','admin/app/config/add',inputData,function(response){ console.log(response);response=JSON.parse(response);respFunc(response); });
@@ -20,4 +20,4 @@ class AdminAppConfigEndpoints {
  
 }
 
-var adminAppConfigEndpoints = new AdminAppConfigEndpoints();
+var devAppConfigEndpoints = new DevAppConfigEndpoints();

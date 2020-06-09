@@ -9,7 +9,7 @@
  * || 3) paramValue VARCHAR(250)                   ||
  * ================================================
  */
- class AdminAppConfig {
+ class DevAppConfig {
 	 function query_view_appConfigParams($key,$keys){
 		$sql="SELECT * FROM dev_app_config";
 		if($key=='multiple'){ // Multiple Keys

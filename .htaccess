@@ -24,10 +24,10 @@ RewriteRule admin/account/role/delete backend/php/dac/controller.admin.accounts.
 RewriteRule admin/account/role/update backend/php/dac/controller.admin.accounts.roles.php?action=ADMIN_AUTH_UPDATEROLE [L,QSA]
 
 # App Configuration
-RewriteRule admin/app/config/view/([^/]+)$ backend/php/dac/controller.admin.app.config.php?action=APP_PROPERTY_VIEW&key=$1 [L,QSA]
-RewriteRule admin/app/config/update/([^/]+)$ backend/php/dac/controller.admin.app.config.php?action=APP_PROPERTY_UPDATE&key=$1 [L,QSA]
-RewriteRule admin/app/config/add backend/php/dac/controller.admin.app.config.php?action=APP_PROPERTY_ADD [L,QSA]
-RewriteRule admin/app/config/delete/([^/]+)$ backend/php/dac/controller.admin.app.config.php?action=APP_PROPERTY_DELETE&key=$1 [L,QSA]
+RewriteRule admin/app/config/view/([^/]+)$ backend/php/dac/controller.dev.app.config.php?action=APP_PROPERTY_VIEW&key=$1 [L,QSA]
+RewriteRule admin/app/config/update/([^/]+)$ backend/php/dac/controller.dev.app.config.php?action=APP_PROPERTY_UPDATE&key=$1 [L,QSA]
+RewriteRule admin/app/config/add backend/php/dac/controller.dev.app.config.php?action=APP_PROPERTY_ADD [L,QSA]
+RewriteRule admin/app/config/delete/([^/]+)$ backend/php/dac/controller.dev.app.config.php?action=APP_PROPERTY_DELETE&key=$1 [L,QSA]
 
 # Customer Accounts
 RewriteRule user/list/surNames backend/php/dac/controller.user.accounts.auth.php?action=USER_LIST_SURNAMES [L,QSA]
@@ -50,7 +50,12 @@ RewriteRule admin/manage/roles  pages/admin-manage-accounts-roles.php [L,QSA]
 RewriteRule admin/manage/accounts  pages/admin-manage-accounts-userAccounts.php [L,QSA]
 RewriteRule admin/manage/modPages  pages/admin-manage-accounts-modPages.php [L,QSA]
 RewriteRule admin/manage/accounts/accessPerm  pages/admin-manage-accounts-accessPerm.php [L,QSA]
-RewriteRule developer/app/config pages/admin-developer-app-config.php [L,QSA]
+
+# Developer Pages
+RewriteRule developer/app/config pages/developer-app-config.php [L,QSA]
+
+# Marketing Pages
+RewriteRule market/app/future-customers pages/market-app-future-customers.php [L,QSA]
 
 # Customer Pages
 RewriteRule user/manage/dashboard pages/admin-manage-dashboard.php [L,QSA]

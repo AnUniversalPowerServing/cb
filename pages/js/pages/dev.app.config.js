@@ -1,49 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <title>App Config</title>
-  <?php include_once 'templates/app_init.php'; ?>
-  <link href="<?php echo $PROJECT_URL ?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="<?php echo $PROJECT_URL ?>vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-  <link href="<?php echo $PROJECT_URL ?>vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
-  <link href="<?php echo $PROJECT_URL ?>vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
-  <link href="<?php echo $PROJECT_URL ?>vendor/sb-admin/css/sb-admin-2.css" rel="stylesheet">
-  <link href="<?php echo $PROJECT_URL ?>vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-  <script src="<?php echo $PROJECT_URL ?>vendor/jquery/jquery.min.js"></script>
-  <script src="<?php echo $PROJECT_URL ?>vendor/bootstrap/js/bootstrap.min.js"></script>
-  <script src="<?php echo $PROJECT_URL ?>vendor/metisMenu/metisMenu.min.js"></script>
-  <script src="<?php echo $PROJECT_URL ?>vendor/datatables/js/jquery.dataTables.min.js"></script>
-  <script src="<?php echo $PROJECT_URL ?>vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-  <script src="<?php echo $PROJECT_URL ?>vendor/datatables-responsive/dataTables.responsive.js"></script>
-  <script src="<?php echo $PROJECT_URL ?>vendor/sb-admin/js/sb-admin-2.js"></script>
-  <script src="<?php echo $PROJECT_URL ?>pages/js/common/endpoints.admin.app.config.js"></script>
-  <script src="<?php echo $PROJECT_URL ?>pages/js/common/session.js"></script>
-  <script src="<?php echo $PROJECT_URL ?>pages/js/api/bootstrap-advanced.js"></script>
-  <script src="<?php echo $PROJECT_URL ?>pages/js/api/core-skeleton.js"></script>
-  <script src="<?php echo $PROJECT_URL ?>pages/js/common/validations.js"></script>
-  
-  <script type="text/javascript">
-
- </script>
-</head>
-<body>
-    <div id="wrapper">
-        <!-- Top Header ::: Start -->
-		<?php include_once 'templates/admin_header_top.php'; ?>
-        <!-- Top Header ::: Ends -->		
-        <div id="page-wrapper">
-		   
-		   <div class="row">
-		     <div class="col-lg-12">
-			   <h4 class="page-header">Application Configuration</h4>
-		     </div><!-- /.col-lg-12 -->
-		   </div><!--/.row -->
-<script type="text/javascript">
 class DevAppConfigUI {
   ui_devAppConfig_saveConfirmForm(id, index){
    var paramName = $('#'+manage_devAppConfig_htmlElements.manage_devAppConfig_update_inputparamName_+index).val();
@@ -86,7 +40,7 @@ class DevAppConfigUI {
 	$('#'+id).modal();
   }
   ui_devAppConfig_view(id){
-	adminAppConfigEndpoints.viewInfo_configParams({},function(response){
+	devAppConfigEndpoints.viewInfo_configParams({},function(response){
 	  var content='<div class="table-responsive">';	
 		  content+='<table class="table">';
 		  content+='<thead>';
@@ -99,6 +53,7 @@ class DevAppConfigUI {
 		  content+='</tr>';
 		  content+='</thead>';
 		  content+='<tbody>';
+		  if(response.length>0){
 		  for(var index=0;index<response.length;index++){
 		  content+='<tr align="center">';
 		  content+='<td><b>'+(index+1)+'.</b></td>';
@@ -127,6 +82,9 @@ class DevAppConfigUI {
 		  content+='onclick="javascript:devAppConfigUI.ui_devAppConfig_deleteConfirmForm(\''+manage_devAppConfig_htmlElements.manage_devAppConfig_deleteExistingParamModal+'\','+index+');"></i>';
 		  content+='</td>';
 		  content+='</tr>';
+		  }
+		  } else {
+			 content+='<tr align="center" class="warning"><td></td><td></td><td>No Record Found</td><td></td><td></td></tr>'; 
 		  }
 		  content+='</tbody>';
 		  content+='</table>';
@@ -208,18 +166,19 @@ function submit_manage_devAppConfig_update_save(index){
  var paramDesc = $('#'+manage_devAppConfig_htmlElements.manage_devAppConfig_update_inputParamDesc_+index).val();
  document.getElementById(manage_devAppConfig_htmlElements.manage_devAppConfig_update_viewParamValue_+index).innerHTML='<b>'+paramValue+'</b>';
  document.getElementById(manage_devAppConfig_htmlElements.manage_devAppConfig_update_viewParamDesc_+index).innerHTML=paramDesc;
- adminAppConfigEndpoints.update_configParam({paramName:paramName,paramValue:paramValue,paramDesc:paramDesc},function(response){
-   alert_display_success(response.statusDesc,'#');
+ devAppConfigEndpoints.update_configParam({paramName:paramName,paramValue:paramValue,paramDesc:paramDesc},function(response){
+   if(response.status.toLowerCase === 'success'){ alert_display_success(response.statusDesc,'#'); }
+   else { alert_display_error(response.statusDesc); }
  });
 }
 
 function submit_manage_devAppConfig_delete(index){
   var paramName = $('#'+manage_devAppConfig_htmlElements.manage_devAppConfig_update_inputparamName_+index).val();
-  adminAppConfigEndpoints.delete_configParam({paramName:paramName},function(response){
+  devAppConfigEndpoints.delete_configParam({paramName:paramName},function(response){
 	$('#'+manage_devAppConfig_htmlElements.manage_devAppConfig_deleteExistingParamModal).modal('hide');
-	alert_display_success(response.statusDesc,'#');
-	manage_devAppConfig_view();
-	
+	if(response.status.toLowerCase === 'success'){ alert_display_success(response.statusDesc,'#'); }
+	else { alert_display_error(response.statusDesc); }
+	manage_devAppConfig_view();	
   });
 }
 function submit_manage_devAppConfig_add(){
@@ -227,10 +186,10 @@ function submit_manage_devAppConfig_add(){
  var paramValue = $('#'+manage_devAppConfig_htmlElements.manage_devAppConfig_add_inputparamValue).val();
  var paramDesc = $('#'+manage_devAppConfig_htmlElements.manage_devAppConfig_add_inputparamDesc).val();
  if(paramName.length>0 && paramValue.length>0 && paramDesc.length>0){
-	 adminAppConfigEndpoints.create_configParam({paramName:paramName,paramValue:paramValue,paramDesc:paramDesc},function(response){
+	 devAppConfigEndpoints.create_configParam({paramName:paramName,paramValue:paramValue,paramDesc:paramDesc},function(response){
 	   manage_devAppConfig_view();
 	   VALIDATION_MESSAGE_ERROR=response.statusDesc;
-	   show_validate_msg('success',manage_devAppConfig_htmlElements.manage_devAppConfig_add_warnErrorMsg);
+	   show_validate_msg(response.status,manage_devAppConfig_htmlElements.manage_devAppConfig_add_warnErrorMsg);
 	   $('#'+manage_devAppConfig_htmlElements.manage_devAppConfig_add_inputparamName).val('');
 	   $('#'+manage_devAppConfig_htmlElements.manage_devAppConfig_add_inputparamValue).val('');
        $('#'+manage_devAppConfig_htmlElements.manage_devAppConfig_add_inputparamDesc).val('');
@@ -264,77 +223,3 @@ function reset_manage_devAppConfig_add(){
 			manage_devAppConfig_htmlElements.manage_devAppConfig_add_inputparamValue, manage_devAppConfig_htmlElements.manage_devAppConfig_add_inputparamDesc]);
  document.getElementById(manage_devAppConfig_htmlElements.manage_devAppConfig_add_warnErrorMsg).innerHTML='';
 }
-
-</script>
-
-<!-- Add New Config ::: START -->
-<div class="row">
- <div align="right" class="col-lg-12">
-   <button class="btn btn-default" data-toggle="modal" data-target="#addNewConfigParamModal"><b>+ Add New Parameter</b></button>
- </div><!-- /.col-lg-12 -->
-</div><!--/.row -->
-<div id="addNewConfigParamModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header modal-header-blue">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Add New Configuration Paramter</h4>
-      </div>
-      <div class="modal-body">
-        <!-- -->
-		<div class="container-fluid">
-		 <div class="row">
-		  <div class="col-lg-12">
-		  
-		    <!-- -->
-			<div id="manage-devAppConfig-add-warnErrorMsg" class="form-group"></div><!--/.form-group -->
-			<div class="form-group">
-			 <label>Parameter Name</label>
-			 <input type="text" id="manage-devAppConfig-add-inputparamName" class="form-control" placeholder="Enter Parameter Name"/>
-			</div><!--/.form-group -->
-			
-			<div class="form-group">
-			 <label>Parameter Value</label>
-			 <input type="text" id="manage-devAppConfig-add-inputparamValue" class="form-control" placeholder="Enter Parameter Value"/>
-			</div><!--/.form-group -->
-			
-			<div class="form-group">
-			 <label>Parameter Description</label>
-			 <textarea id="manage-devAppConfig-add-inputparamDesc" class="form-control" placeholder="Enter Parameter Description"></textarea>
-			</div><!--/.form-group -->
-			
-			<div align="center" class="form-group">
-			 <button class="btn btn-blue" onclick="javascript:submit_manage_devAppConfig_add();"><b>Add New Parameter</b></button>
-			 <button class="btn btn-blue-o" onclick="javascript:reset_manage_devAppConfig_add();"><b>Reset Form</b></button>
-			</div><!--/.form-group -->
-			<!-- -->
-			
-		  </div><!--/.col-lg-12 -->
-		 </div><!--/.row -->
-		</div><!--/.container-fluid -->
-		<!-- -->
-      </div><!--/.modal-body -->
-    </div><!--/.modal-content -->
-  </div><!--/.modal-dialog -->
-</div><!--/.modal -->
-<!-- Add New Config ::: END -->
-		   
-		   <div class="row mtop15p">
-		     <div id="manage-devAppConfig-view-configInfo" class="col-lg-12"></div><!-- /.col-lg-12 -->
-		   </div><!--/.row -->
-			
-			<!-- Update App Config ::: START -->
-			<div id="manage-devAppConfig-updateExistingParamModal" class="modal fade" role="dialog"></div>
-			<!-- Update App Config ::: END -->
-			
-			<!-- Delete App Config ::: START -->
-			<div id="manage-devAppConfig-deleteExistingParamModal" class="modal fade" role="dialog"></div>
-			<!-- Delete App Config ::: END -->
-
-
-		   
-		</div><!-- /#page-wrapper -->
-    </div><!-- /#wrapper -->
-</body>
-
-</html>

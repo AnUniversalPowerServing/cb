@@ -3,7 +3,7 @@
  require_once '../util/app.error.handler.php';
  require_once '../api/app.initiator.php';
  require_once '../api/app.database.php';
- require_once '../dal/data.admin.app.config.php';
+ require_once '../dal/data.dev.app.config.php';
  
  $database = new Database($DB_MLHBASIC_SERVERNAME,$DB_MLHBASIC_NAME,$DB_MLHBASIC_USER,$DB_MLHBASIC_PASSWORD);
  
@@ -13,8 +13,8 @@
 			$key = $_GET["key"];
 			$keys = array();
 			if(isset($_POST["keys"])){ $keys = $_POST["keys"]; }
-		    $adminAppConfig = new AdminAppConfig();
-			$query = $adminAppConfig->query_view_appConfigParams($key,$keys);
+		    $devAppConfig = new DevAppConfig();
+			$query = $devAppConfig->query_view_appConfigParams($key,$keys);
 			if(strlen($query)>0){
 			  echo $database->getJSONData($query);
 			}
@@ -25,8 +25,8 @@
 	    $paramName = $_GET["key"];
 		$paramValue = ''; if(isset($_POST["paramValue"])){ $paramValue = $_POST["paramValue"]; }
 		$paramDesc = ''; if(isset($_POST["paramDesc"])){ $paramDesc = $_POST["paramDesc"]; }
-		$adminAppConfig = new AdminAppConfig();
-		$query = $adminAppConfig->query_update_appConfigParams($paramName,$paramValue,$paramDesc);
+		$devAppConfig = new DevAppConfig();
+		$query = $devAppConfig->query_update_appConfigParams($paramName,$paramValue,$paramDesc);
 		echo $database->addupdateData($query,"Parameter <b>\"".$paramName."\"</b> updated Successfully. ");
 	  } else {
 		 echo  $successErrorHandler->missingParams('key');
@@ -37,11 +37,11 @@
 		$paramName = $_POST["paramName"];
 		$paramValue = $_POST["paramValue"];
 		$paramDesc = $_POST["paramDesc"];
-		$adminAppConfig = new AdminAppConfig();
+		$devAppConfig = new DevAppConfig();
 		
-		$query1 = $adminAppConfig->query_verify_appConfigParamsExist($paramName);
+		$query1 = $devAppConfig->query_verify_appConfigParamsExist($paramName);
 		if(intval(json_decode($database->getJSONData($query1))[0]->{'count(*)'})==0){
-		  $query2 = $adminAppConfig->query_add_appConfigParams($paramName,$paramValue,$paramDesc);
+		  $query2 = $devAppConfig->query_add_appConfigParams($paramName,$paramValue,$paramDesc);
 		  echo $database->addupdateData($query2,"Parameter <b>\"".$paramName."\"</b> added Successfully. ");
 		} else {
 			echo $successErrorHandler->successErrorInfo($APP_MSG_ERROR,"Parameter <b>\"".$paramName."\"</b> already Exists. Please try with other Parameter Name.");
@@ -58,8 +58,8 @@
 	else if($_GET["action"]=='APP_PROPERTY_DELETE'){
 	  if(isset($_GET["key"])){
 		$paramName = $_GET["key"];
-		$adminAppConfig = new AdminAppConfig();
-		$query = $adminAppConfig->query_delete_appConfigParams($paramName);
+		$devAppConfig = new DevAppConfig();
+		$query = $devAppConfig->query_delete_appConfigParams($paramName);
 		echo $database->addupdateData($query,"Parameter <b>\"".$paramName."\"</b> deleted Successfully. ");
 	  } else {
 		 echo  $successErrorHandler->missingParams('key');
