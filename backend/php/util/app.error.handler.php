@@ -12,6 +12,13 @@
 	$successError["statusDesc"]=$desc;
 	return json_encode($successError);
    }
+   function successErrorInsertUpdateInfo($info,$desc,$insertUpdateId){
+	$successError = array();
+	$successError["status"]=$info;
+	$successError["statusDesc"]=$desc;
+	$successError["insertUpdateId"]=$insertUpdateId;
+	return json_encode($successError);
+   }
  }
  
  $successErrorHandler = new SuccessErrorHandler();

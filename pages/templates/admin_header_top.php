@@ -277,7 +277,7 @@ textarea { min-height:100px; }
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> <b>Developers</b><span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
 								<li>
-                                    <a href="<?php echo $PROJECT_URL.'developer/app/config'; ?>">App Config</a>
+                                    <a href="<?php echo $PROJECT_URL.'dev/app/config'; ?>">App Config</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -286,7 +286,7 @@ textarea { min-height:100px; }
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> <b>App Marketing</b><span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
 								<li>
-                                    <a href="<?php echo $PROJECT_URL; ?>market/app/future-customers">Future Customers</a>
+                                    <a href="<?php echo $PROJECT_URL; ?>mrkt/app/future-customers">Future Customers</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

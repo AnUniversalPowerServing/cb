@@ -1,10 +1,10 @@
 <?php
  session_start();
- require_once '../util/app.error.handler.php';
  require_once '../api/app.initiator.php';
  require_once '../api/app.database.php';
  require_once '../dal/data.dev.app.config.php';
- 
+  require_once '../util/app.error.handler.php';
+  
  $database = new Database($DB_MLHBASIC_SERVERNAME,$DB_MLHBASIC_NAME,$DB_MLHBASIC_USER,$DB_MLHBASIC_PASSWORD);
  
  if(isset($_GET["action"])){

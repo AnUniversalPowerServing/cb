@@ -29,6 +29,17 @@ RewriteRule admin/app/config/update/([^/]+)$ backend/php/dac/controller.dev.app.
 RewriteRule admin/app/config/add backend/php/dac/controller.dev.app.config.php?action=APP_PROPERTY_ADD [L,QSA]
 RewriteRule admin/app/config/delete/([^/]+)$ backend/php/dac/controller.dev.app.config.php?action=APP_PROPERTY_DELETE&key=$1 [L,QSA]
 
+#Future Customers
+RewriteRule mrkt/app/mrktGrp/view/all backend/php/dac/controller.mrkt.app.fc.php?action=APP_MRKTGRP_VIEW [L,QSA]
+RewriteRule mrkt/app/mrktGrp/add backend/php/dac/controller.mrkt.app.fc.php?action=APP_MRKTGRP_ADD [L,QSA]
+RewriteRule mrkt/app/mrktGrp/delete/([^/]+)$ backend/php/dac/controller.mrkt.app.fc.php?action=APP_MRKTGRP_DELETE&mgName=$1 [L,QSA]
+RewriteRule mrkt/app/mrktGrp/update backend/php/dac/controller.mrkt.app.fc.php?action=APP_MRKTGRP_UPDATE [L,QSA]
+
+RewriteRule mrkt/app/fc/view/all backend/php/dac/controller.mrkt.app.fc.php?action=APP_FC_VIEW [L,QSA]
+RewriteRule mrkt/app/fc/add backend/php/dac/controller.mrkt.app.fc.php?action=APP_FC_ADD [L,QSA]
+RewriteRule mrkt/app/fc/delete/([^/]+)$ backend/php/dac/controller.mrkt.app.fc.php?action=APP_FC_DELETE&fcmg_Id=$1 [L,QSA]
+RewriteRule mrkt/app/fc/update backend/php/dac/controller.mrkt.app.fc.php?action=APP_FC_UPDATE [L,QSA]
+
 # Customer Accounts
 RewriteRule user/list/surNames backend/php/dac/controller.user.accounts.auth.php?action=USER_LIST_SURNAMES [L,QSA]
 RewriteRule user/infoBy/mobile backend/php/dac/controller.user.accounts.auth.php?action=USER_INFOBY_BYMOBILE [L,QSA]
@@ -37,8 +48,6 @@ RewriteRule user/auth/account/verifyMobile backend/php/dac/controller.user.accou
 RewriteRule user/auth/account/new backend/php/dac/controller.user.accounts.auth.php?action=USER_AUTH_ADDNEWACCOUNT [L,QSA]
 RewriteRule user/auth/account/update backend/php/dac/controller.user.accounts.auth.php?action=USER_AUTH_UPDATEACCOUNTINFO [L,QSA]
 RewriteRule user/auth/access backend/php/dac/controller.user.accounts.auth.php?action=USER_AUTH_LOGIN [L,QSA]
-
-
 
 # General Pages
 RewriteRule user/auth auth-form-user.php [L,QSA]
@@ -52,10 +61,10 @@ RewriteRule admin/manage/modPages  pages/admin-manage-accounts-modPages.php [L,Q
 RewriteRule admin/manage/accounts/accessPerm  pages/admin-manage-accounts-accessPerm.php [L,QSA]
 
 # Developer Pages
-RewriteRule developer/app/config pages/developer-app-config.php [L,QSA]
+RewriteRule dev/app/config pages/dev-app-config.php [L,QSA]
 
 # Marketing Pages
-RewriteRule market/app/future-customers pages/market-app-future-customers.php [L,QSA]
+RewriteRule mrkt/app/future-customers pages/mrkt-app-future-customers.php [L,QSA]
 
 # Customer Pages
 RewriteRule user/manage/dashboard pages/admin-manage-dashboard.php [L,QSA]

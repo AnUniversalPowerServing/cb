@@ -24,7 +24,7 @@
   <script src="<?php echo $PROJECT_URL ?>/vendor/raphael/raphael.min.js"></script>
   <script src="<?php echo $PROJECT_URL ?>/vendor/morrisjs/morris.min.js"></script>
   <script src="<?php echo $PROJECT_URL ?>vendor/sb-admin/js/sb-admin-2.js"></script>
-  <script src="<?php echo $PROJECT_URL ?>pages/js/common/endpoints.dev.app.config.js"></script>
+  <script src="<?php echo $PROJECT_URL ?>pages/js/common/endpoints.mrkt.app.fc.js"></script>
   <script src="<?php echo $PROJECT_URL ?>pages/js/common/session.js"></script>
   <script src="<?php echo $PROJECT_URL ?>pages/js/api/bootstrap-advanced.js"></script>
   <script src="<?php echo $PROJECT_URL ?>pages/js/api/core-skeleton.js"></script>
@@ -190,17 +190,18 @@
 			  <div class="col-lg-12">
 			    <ul class="nav nav-tabs">
 				  <li class="active"><a data-toggle="tab" href="#appMarketStatistics"><b>App Marketing Statistics</b></a></li>
-				  <li><a data-toggle="tab" href="#marketManager"><b>Market Manager</b></a></li>
+				  <li><a data-toggle="tab" href="#marketManager" 
+						onclick="javascript:manage_mrktApp_marketManager_marketGroup_view();"><b>Market Manager</b></a></li>
 				</ul>
 				<div class="list-group">
 				  <div class="list-group-item">
 				    <!-- -->
 					<div class="tab-content">
 					  <div id="appMarketStatistics" class="tab-pane fade active in">
-						<?php include_once 'templates/market-app-fc-appMarketStatistics.php'; ?>
+						<?php include_once 'templates/mrkt-app-fc-appMarketStatistics.php'; ?>
 					  </div><!--/#appMarketStatistics -->
 					  <div id="marketManager" class="tab-pane fade">
-						<?php include_once 'templates/market-app-fc-marketManager.php'; ?> 
+						<?php include_once 'templates/mrkt-app-fc-marketManager.php'; ?> 
 					  </div><!--/#marketManager -->
 					</div><!--/.tab-content -->
 					<!-- -->

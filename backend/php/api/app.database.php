@@ -112,7 +112,14 @@ class Database
           $this->logger->error("Query(Status-Invalid) : ".$sql); 
       } else {  while($row = $result->fetch_assoc()){ $arry_col[count($arry_col)] = $row[$columnName];  } }
       $conn->close();
-	  return $arry_col;
+	  $columnVal='[';
+	  while(list($key, $val) = each($arry_col)){
+		$columnVal.='"'.$val.'",';
+	  }
+	  $columnVal=chop($columnVal,',');
+	  $columnVal.=']';
+	  
+	  return $columnVal;
 	}
 
 }

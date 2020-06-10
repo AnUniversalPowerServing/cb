@@ -296,7 +296,7 @@ function bootstrap_switch_radioMode(name,switchMapper){
 function bootstrap_message_warning(div_Id,message){
 var content='<div class="alert alert-warning alert-dismissible" style="margin-bottom:0px;">';
     content+='<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-    content+='<strong>Warning! </strong>'+message;
+    content+='<strong>Message! </strong>'+message;
     content+='</div>';
  document.getElementById(div_Id).innerHTML=content;
 }
@@ -304,7 +304,7 @@ var content='<div class="alert alert-warning alert-dismissible" style="margin-bo
 function bootstrap_message_error(div_Id,message){
 var content='<div class="alert alert-danger alert-dismissible" style="margin-bottom:0px;">';
     content+='<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-    content+='<strong>Error! </strong>'+message;
+    content+='<strong>Message! </strong>'+message;
     content+='</div>';
  document.getElementById(div_Id).innerHTML=content;
 }
@@ -312,7 +312,7 @@ var content='<div class="alert alert-danger alert-dismissible" style="margin-bot
 function bootstrap_message_success(div_Id,message){
 var content='<div class="alert alert-success alert-dismissible" style="margin-bottom:0px;">';
     content+='<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-    content+='<strong>Success! </strong>'+message;
+    content+='<strong>Message! </strong>'+message;
     content+='</div>';
  document.getElementById(div_Id).innerHTML=content;
 }
@@ -321,7 +321,7 @@ function bootstrap_display_warning(div_Id,warning_Id){
 js_ajax("GET",PROJECT_URL+'config/warning_messages.json',{},function(response){
 var content='<div class="alert alert-warning alert-dismissible" style="margin-bottom:0px;">';
     content+='<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-    content+='<strong>Warning!</strong> '+response[warning_Id][USR_LANG];
+    content+='<strong>Message!</strong> '+response[warning_Id][USR_LANG];
     content+='</div>';
  document.getElementById(div_Id).innerHTML=content;
 });
@@ -330,7 +330,7 @@ function bootstrap_display_error(div_Id,error_Id){
 js_ajax("GET",PROJECT_URL+'config/error_messages.json',{},function(response){
 var content='<div class="alert alert-danger alert-dismissible" style="margin-bottom:0px;">';
     content+='<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-    content+='<strong>Warning!</strong> '+response[error_Id][USR_LANG];
+    content+='<strong>Message!</strong> '+response[error_Id][USR_LANG];
     content+='</div>';
  document.getElementById(div_Id).innerHTML=content;
 });
@@ -340,7 +340,7 @@ js_ajax("GET",PROJECT_URL+'config/success_messages.json',{},function(response){
 console.log(response);
 var content='<div class="alert alert-success alert-dismissible" style="margin-bottom:0px;">';
     content+='<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-    content+='<strong>Success!</strong> '+response[success_Id][USR_LANG];
+    content+='<strong>Message!</strong> '+response[success_Id][USR_LANG];
     content+='</div>';
  document.getElementById(div_Id).innerHTML=content;
 });
@@ -370,7 +370,7 @@ var content='<div class="modal-dialog">';
     content+='<div class="modal-body" style="padding:0px;">';
     content+='<div class="alert alert-warning alert-dismissible" style="margin-bottom:0px;">';
     content+='<a href="#" class="close" data-dismiss="modal" aria-label="close">&times;</a>';
-    content+='<strong>Warning!</strong> '+warning_msg;
+    content+='<strong>Message!</strong> '+warning_msg;
     content+='</div>';
     content+='</div>';
     content+='</div>';
@@ -389,7 +389,7 @@ var content='<div class="modal-dialog">';
     content+='<div class="modal-body" style="padding:0px;">';
     content+='<div class="alert alert-warning alert-dismissible" style="margin-bottom:0px;">';
     content+='<a href="#" class="close" data-dismiss="modal" aria-label="close">&times;</a>';
-    content+='<strong>Warning!</strong> '+error_msg;
+    content+='<strong>Message!</strong> '+error_msg;
     content+='</div>';
     content+='</div>';
     content+='</div>';
@@ -409,7 +409,7 @@ var content='<div class="modal-dialog">';
     content+='<div class="alert alert-success alert-dismissible" style="margin-bottom:0px;">';
     content+='<a href="'+success_url+'" class="close" data-dismiss="modal" ';
 	content+='aria-label="close">&times;</a>';
-    content+='<strong>Success!</strong> '+success_msg;
+    content+='<strong>Message!</strong> '+success_msg;
     content+='</div>';
     content+='</div>';
     content+='</div>';
