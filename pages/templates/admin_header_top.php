@@ -21,6 +21,11 @@ textarea { min-height:100px; }
 .btn-mediumPurple-o,.btn-mediumPurple-o:hover,.btn-mediumPurple-o:focus,.btn-mediumPurple-o:active { background-color:#fff;border:1px solid #9c27b0;color:#9c27b0; }
 .btn-blue,.btn-blue:hover,.btn-blue:focus,.btn-blue:active { background-color:#2196f3;border:1px solid #2196f3;color:#fff; }
 .btn-blue-o,.btn-blue-o:hover,.btn-blue-o:focus,.btn-blue-o:active { background-color:#fff;border:1px solid #2196f3;color:#2196f3; }
+
+.btn-danger-o,.btn-danger-o:hover,.btn-danger-o:focus,.btn-danger-o:active { background-color:#fff;border:1px solid #ac2925;color:#ac2925; }
+.btn-success-o,.btn-success-o:hover,.btn-success-o:focus,.btn-success-o:active { background-color:#fff;border:1px solid #02af09;color:#02af09; }
+.btn-primary-o,.btn-primary-o:hover,.btn-primary-o:focus,.btn-primary-o:active { background-color:#fff;border:1px solid #024279;color:#024279; }
+
 </style>
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
   <div class="navbar-header">

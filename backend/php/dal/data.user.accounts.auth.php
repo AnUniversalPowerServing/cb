@@ -5,38 +5,38 @@ class UserAccountAuth {
 	return "SELECT * FROM user_accounts_sq;";
   }
 
-  function query_view_userInfoByMobile($mob_code,$mobile){
-   $sql="SELECT account_Id, mob_code, mobile, surName, name, gender, q1, ";
+  function query_view_userInfoByMobile($mob_code,$mobileNumber){
+   $sql="SELECT account_Id, mob_code, mobileNumberNumber, surName, name, gender, q1, ";
    $sql.="(SELECT sQ FROM user_accounts_sq WHERE ";
    $sql.="user_accounts_auth.q1=user_accounts_sq.sQ_Id) As qq1, a1, q2,";
    $sql.="(SELECT sQ FROM user_accounts_sq WHERE ";
    $sql.="user_accounts_auth.q2=user_accounts_sq.sQ_Id) As qq2, a2, q3, ";
    $sql.="(SELECT sQ FROM user_accounts_sq WHERE ";
    $sql.="user_accounts_auth.q3=user_accounts_sq.sQ_Id) As qq3, a3 FROM ";
-   $sql.="user_accounts_auth WHERE mob_code='".$mob_code."' AND mobile='".$mobile."';";
+   $sql.="user_accounts_auth WHERE mob_code='".$mob_code."' AND mobileNumberNumber='".$mobileNumber."';";
    return $sql;
   }
   
-  function query_view_userMobileIsExists($mobile){
-    return "SELECT * FROM user_accounts_auth WHERE mobile='".$mobile."';";
+  function query_view_userMobileIsExists($mobileNumber){
+    return "SELECT * FROM user_accounts_auth WHERE mobileNumberNumber='".$mobileNumber."';";
   }
   
   function query_view_listOfSurNames(){
     return "SELECT DISTINCT surName FROM user_accounts_auth;";
   }
   
-  function query_add_userAccounts($mob_code, $mobile, $mob_val, $surName, $name, $gender, $acc_pwd, $q1, $a1, $q2, $a2, $q3, $a3, $acc_active){
-   $sql="INSERT INTO user_accounts_auth(mob_code, mobile, mob_val, surName, name, gender, acc_pwd, q1, a1, q2, a2, q3, a3, acc_active) ";
-   $sql.="VALUES ('".$mob_code."','".$mobile."','".$mob_val."','".$surName;
+  function query_add_userAccounts($mob_code, $mobileNumber, $mob_val, $surName, $name, $gender, $acc_pwd, $q1, $a1, $q2, $a2, $q3, $a3, $acc_active){
+   $sql="INSERT INTO user_accounts_auth(mob_code, mobileNumberNumber, mob_val, surName, name, gender, acc_pwd, q1, a1, q2, a2, q3, a3, acc_active) ";
+   $sql.="VALUES ('".$mob_code."','".$mobileNumber."','".$mob_val."','".$surName;
    $sql.="','".$name."','".$gender."','".$acc_pwd."','".$q1."','".$a1."','".$q2."','".$a2."','".$q3."','".$a3."','".$acc_active."');";
    return $sql;
   }
   
-  function query_update_userAccounts($account_Id, $mob_code, $mobile, $surName, $name, $gender, 
+  function query_update_userAccounts($account_Id, $mob_code, $mobileNumber, $surName, $name, $gender, 
 	$acc_pwd, $q1, $a1, $q2, $a2, $q3, $a3, $acc_active){
 	$sql="UPDATE user_accounts_auth SET ";
 	if(strlen($mob_code)>0){ $sql.="mob_code='".$mob_code."',"; }
-	if(strlen($mobile)>0){ $sql.="mobile='".$mobile."',"; }
+	if(strlen($mobileNumber)>0){ $sql.="mobileNumberNumber='".$mobileNumber."',"; }
 	if(strlen($surName)>0){ $sql.="surName='".$surName."',"; }
 	if(strlen($name)>0){ $sql.="name='".$name."',"; }
 	if(strlen($gender)>0){ $sql.="gender='".$gender."',"; }
@@ -53,15 +53,15 @@ class UserAccountAuth {
 	return $sql;
   }
   
-  function query_view_userAccountLogin($mob_code,$mobile,$acc_pwd){
-    $sql="SELECT account_Id, mob_code, mobile, surName, name, gender, q1, ";
+  function query_view_userAccountLogin($mob_code,$mobileNumber,$acc_pwd){
+    $sql="SELECT account_Id, mob_code, mobileNumberNumber, surName, name, gender, q1, ";
     $sql.="(SELECT sQ FROM user_accounts_sq WHERE ";
     $sql.="user_accounts_auth.q1=user_accounts_sq.sQ_Id) As qq1, a1, q2,";
     $sql.="(SELECT sQ FROM user_accounts_sq WHERE ";
     $sql.="user_accounts_auth.q2=user_accounts_sq.sQ_Id) As qq2, a2, q3, ";
     $sql.="(SELECT sQ FROM user_accounts_sq WHERE ";
     $sql.="user_accounts_auth.q3=user_accounts_sq.sQ_Id) As qq3, a3 FROM ";
-    $sql.="user_accounts_auth WHERE mob_code='".$mob_code."' AND mobile='".$mobile."' AND acc_pwd='".$acc_pwd."';";
+    $sql.="user_accounts_auth WHERE mob_code='".$mob_code."' AND mobileNumberNumber='".$mobileNumber."' AND acc_pwd='".$acc_pwd."';";
 	return $sql;
   }
 }

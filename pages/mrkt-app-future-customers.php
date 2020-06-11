@@ -29,6 +29,7 @@
   <script src="<?php echo $PROJECT_URL ?>pages/js/api/bootstrap-advanced.js"></script>
   <script src="<?php echo $PROJECT_URL ?>pages/js/api/core-skeleton.js"></script>
   <script src="<?php echo $PROJECT_URL ?>pages/js/common/validations.js"></script>
+  <script src="<?php echo $PROJECT_URL ?>pages/js/mrkt.app.mrkt.grp.js"></script>
   <script>
   $(document).ready(function(){
    Morris.Area({

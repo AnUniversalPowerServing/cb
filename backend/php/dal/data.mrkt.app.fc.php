@@ -14,8 +14,8 @@ class AppMrktFC {
   return "SELECT * FROM mrkt_app_mg ";
  }
  function query_delete_marketGroup($mgName){
-  $sql="DELETE FROM mrkt_app_fc WHERE mgName=".$mgName.";";
-  $sql.="DELETE FROM mrkt_app_mg WHERE mgName=".$mgName.";";
+  $sql="DELETE FROM mrkt_app_fc WHERE mgName='".$mgName."';";
+  $sql.="DELETE FROM mrkt_app_mg WHERE mgName='".$mgName."';";
   return $sql;
  }
  function query_add_futureCustomerMobile($mob_code,$mobileNumber,$mgName){
@@ -23,7 +23,12 @@ class AppMrktFC {
  }
  function query_view_futureCustomerWithMarketGroup(){
   $sql="SELECT DISTINCT(mobileNumber) As mobile, mob_code As mobCode, (SELECT GROUP_CONCAT(mgName) As mgName FROM mrkt_app_fc";
-  $sql.=" WHERE mob_code=mobCode AND mobileNumber=mobile) As mrkGrp FROM mrkt_app_fc";
+  $sql.=" WHERE mob_code=mobCode AND mobileNumber=mobile) As mrkGrp, ";
+  $sql.="(CASE ";
+  $sql.="WHEN (SELECT count(*) FROM user_accounts_auth, mrkt_app_fc WHERE user_accounts_auth.mob_code=mobCode AND user_accounts_auth.mobileNumber=mobile ";
+  $sql.="AND user_accounts_auth.mob_code=mrkt_app_fc.mob_code AND user_accounts_auth.mobileNumber=mrkt_app_fc.mobileNumber)>0 ";
+  $sql.="THEN 'Y' ELSE 'N' END) AS isRegistered ";
+  $sql.="FROM mrkt_app_fc";
   return $sql;
  }
  function query_update_futureCustomer($fcmg_Id,$mob_code,$mobileNumber,$mgName){

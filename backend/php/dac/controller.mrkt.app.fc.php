@@ -14,7 +14,7 @@
       if(isset($_POST["mgName"])){
 	    $mgName = strtoupper($_POST["mgName"]);
 	    $query = $appMrktFC->query_add_marketGroup($mgName);
-		echo $database->addupdateData($query,"Added Market Group <b>".$mgName."</b> Successfully. ");
+		echo $database->addupdateData($query,"Added Market Group <b>\"".$mgName."\"</b> Successfully. ");
 	  } else {
 		 echo  $successErrorHandler->missingParams('mgName');
 	  }
@@ -24,7 +24,7 @@
 		$old_mgName = strtoupper($_POST["old_mgName"]);
 		$new_mgName = strtoupper($_POST["new_mgName"]);
 	    $query = $appMrktFC->query_update_marketGroup($old_mgName,$new_mgName);
-		echo $database->addupdateData($query,"Updated Market Group <b>".$old_mgName."</b> to <b>".$new_mgName."</b> Successfully. ");
+		echo $database->addupdateData($query,"Updated Market Group <b>\"".$old_mgName."\"</b> to <b>\"".$new_mgName."\"</b> Successfully. ");
 	  } else {
 	     $missParam = '';
 		 if(!isset($_POST["old_mgName"])){ $missParam.='old_mgName,'; }
@@ -37,7 +37,7 @@
 	  if(isset($_GET["mgName"])){
 	    $mgName = strtoupper($_GET["mgName"]);
 	    $query = $appMrktFC->query_delete_marketGroup($mgName);
-	    echo $database->addupdateData($query,"Deleted Market Group <b>".$mgName."</b> Successfully. ");
+	    echo $database->addupdateData($query,"Deleted Market Group <b>\"".$mgName."\"</b> Successfully. ");
 	  } else {
 		 echo  $successErrorHandler->missingParams('mgName');
 	  }
@@ -52,7 +52,7 @@
 		for($index=0;$index<count($mgName);$index++){
 	      $query.=$appMrktFC->query_add_futureCustomerMobile($mob_code,$mobileNumber,$mgName[$index]);
 		}
-	    echo $database->addupdateData($query,"Added Future Customer Mobile Number to Market Groups Successfully. ");
+	    echo $database->addupdateData($query,"Added Future Customer Mobile Number <b>\"".$mob_code."-".$mobileNumber."\"</b> to Market Groups \"".$mgName."\" Successfully. ");
 	  } else {
 	     $missParam = '';
 		 if(!isset($_POST["mob_code"])){ $missParam.='mob_code,'; }
