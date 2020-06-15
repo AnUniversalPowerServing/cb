@@ -23,7 +23,7 @@ class AppMrktFC {
  }
  function query_view_futureCustomerWithMarketGroup(){
   $sql="SELECT DISTINCT(mobileNumber) As mobile, mob_code As mobCode, (SELECT GROUP_CONCAT(mgName) As mgName FROM mrkt_app_fc";
-  $sql.=" WHERE mob_code=mobCode AND mobileNumber=mobile) As mrkGrp, ";
+  $sql.=" WHERE mob_code=mobCode AND mobileNumber=mobile) As mrkGrps, ";
   $sql.="(CASE ";
   $sql.="WHEN (SELECT count(*) FROM user_accounts_auth, mrkt_app_fc WHERE user_accounts_auth.mob_code=mobCode AND user_accounts_auth.mobileNumber=mobile ";
   $sql.="AND user_accounts_auth.mob_code=mrkt_app_fc.mob_code AND user_accounts_auth.mobileNumber=mrkt_app_fc.mobileNumber)>0 ";

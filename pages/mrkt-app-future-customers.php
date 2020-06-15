@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>App Config</title>
+  <title>Future Customers</title>
   <?php include_once 'templates/app_init.php'; ?>
   <link href="<?php echo $PROJECT_URL ?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="<?php echo $PROJECT_URL ?>vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
@@ -29,7 +29,7 @@
   <script src="<?php echo $PROJECT_URL ?>pages/js/api/bootstrap-advanced.js"></script>
   <script src="<?php echo $PROJECT_URL ?>pages/js/api/core-skeleton.js"></script>
   <script src="<?php echo $PROJECT_URL ?>pages/js/common/validations.js"></script>
-  <script src="<?php echo $PROJECT_URL ?>pages/js/mrkt.app.mrkt.grp.js"></script>
+  <script src="<?php echo $PROJECT_URL ?>pages/js/pages/mrkt.app.mrkt.grp.js"></script>
   <script>
   $(document).ready(function(){
    Morris.Area({

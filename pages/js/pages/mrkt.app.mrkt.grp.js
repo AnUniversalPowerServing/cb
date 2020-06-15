@@ -1,3 +1,4 @@
+var MRKTFC_RESPONSE = {};
 class MrktAppUI{
   ui_mrktApp_marketGroup_add(id){  
    var content='<div class="modal-dialog">';
@@ -128,6 +129,117 @@ class MrktAppUI{
 	document.getElementById(id).innerHTML=content;
 	$('#'+id).modal();
   }
+  ui_mrktApp_futureCustomers_view(id){
+	mrktAppEndpoints.viewInfo_futureCustomers({},function(response){
+	 console.log(response);
+	 MRKTFC_RESPONSE = response;
+	 var content='<table width="100%" class="table table-striped table-bordered table-hover" id="'+id+'-table">';
+		 content+='<thead>';
+		 content+='<tr>';
+		 content+='<th>S.No.</th>';
+		 content+='<th>Mobile Number</th>';
+		 content+='<th>Market Group</th>';
+		 content+='<th>Status</th>';
+		 content+='</tr>';
+		 content+='</thead>';
+		 content+='<tbody>';
+	 for(var index=0;index<response.length;index++){
+		var mobile = response[index].mobile;
+		var mobCode = response[index].mobCode;
+		var mrkGrps = response[index].mrkGrps.split(",");
+		var isRegistered = response[index].isRegistered;
+		if(index%2===0){ content+='<tr class="odd gradeX"'; }
+		else { content+='<tr class="even gradeC"'; }
+		content+=' onclick="javascript:manage_mrktApp_marketManager_futureCustomers_update('+index+');">';
+		content+='<td>'+(index+1)+'</td>';
+		content+='<td>'+mobCode+'-'+mobile+'</td>';
+		content+='<td>';
+		for(var mrktGrpIndex=0;mrktGrpIndex<mrkGrps.length;mrktGrpIndex++){
+		 content+='<div>';
+		 if(mrktGrpIndex%2===0){ content+='<span class="label label-primary">'+mrkGrps[mrktGrpIndex]+'</span>'; }
+		 else { content+='<span class="label label-warning">'+mrkGrps[mrktGrpIndex]+'</span>'; }
+		 content+='</div>';
+		}
+		content+='</td>';
+		content+='<td class="center">';
+		if(isRegistered==='Y'){ content+='<div><span class="label label-success">REGISTERED</span></div>'; }
+		else { content+='<div><span class="label label-danger">UNREGISTERED</span></div>'; }
+		content+='</td>';
+		content+='</tr>';
+	 }
+	    content+='</tbody>';
+		content+='</table>';
+		document.getElementById(id).innerHTML=content;	
+		$('#'+id+'-table').DataTable({ "autoWidth": false,responsive: true });
+	});
+	
+								  
+  } 
+  ui_mrktApp_futureCustomers_update(id,index){
+	var mrktFcResponse = MRKTFC_RESPONSE;
+	var mobile = mrktFcResponse[index].mobile;
+	var mobCode = mrktFcResponse[index].mobCode;
+	var mrkGrps = mrktFcResponse[index].mrkGrps;
+	var isRegistered = mrktFcResponse[index].isRegistered;
+	var content='<div class="modal-dialog">';
+	   content+='<div class="modal-content">';
+       content+='<div class="modal-header modal-header-blue">';
+       content+='<button type="button" class="close" data-dismiss="modal">&times;</button>';
+       content+='<h4 class="modal-title">Update Market Group</h4>';
+       content+='</div>'; // modal-header
+       content+='<div class="modal-body">';
+       
+	   content+='<div class="container-fluid">';
+	   content+='<div class="row">';
+	   content+='<div class="col-lg-12">';
+	   content+='<div id="'+manage_mrktApp_htmlElements.manage_mrktApp_update_warnErrorMsg+'" class="form-group"></div>';
+	   content+='</div>';
+	   content+='</div>';
+	   content+='<div class="row">';
+	   content+='<div class="col-lg-12">';
+	 
+	   content+='<div class="form-group">';
+	   content+='<label>Mobile Number</label>';
+	   content+='<div class="input-group">';
+	   content+='<div class="input-group-btn">';
+	   content+='<div class="dropdown">';
+	   content+='<button class="btn btn-default dropdown-toggle" style="border-radius:0px;" type="button" data-toggle="dropdown">+91';
+	   content+='<span class="caret"></span></button>';
+	   content+='<ul class="dropdown-menu">';
+	   content+='<li><a href="#">+91</a></li>';
+	   content+='</ul>';
+	   content+='</div>';
+	   content+='</div>';
+	   content+='<input class="form-control" id="'+manage_mrktApp_htmlElements.manage_mrktApp_update_fc_mobile+'" ';
+	   content+='placeholder="Enter Mobile Number" value="'+mobile+'" disabled>';
+	   content+='</div>';
+	   content+='</div>';
+	   
+	   content+='<div class="form-group">';
+	   content+='<label>Market Group</label>';
+	   content+='<select id="'+manage_mrktApp_htmlElements.manage_mrktApp_update_fc_mrktGrp+'" class="form-control" multiple="multiple" disabled>';
+						
+	   content+='</select>';
+	   content+='</div>';
+				   
+	   content+='<div align="center" class="form-group">';
+	   content+='<button id="manage-mrktApp-update-fc-editBtn" class="btn btn-success-o hide-block" onclick="javascript:enable_manage_mrktApp_futureCustomers_update();"><b>Edit Market Group</b></button>';
+	   content+='<button id="manage-mrktApp-update-fc-saveBtn" class="btn btn-success-o hide-block" onclick="javascript:submit_manage_mrktApp_marketManager_futureCustomers_update();"><b>Save Market Group</b></button>';
+	   content+='<button id="manage-mrktApp-update-fc-resetBtn" class="btn btn-blue-o hide-block" onclick="javascript:reset_manage_mrktApp_marketManager_futureCustomers_update();"><b>Reset Market Group Form</b></button>';
+	   content+='<button id="manage-mrktApp-update-fc-deleteBtn" class="btn btn-danger-o hide-block" onclick="javascript:mrktAppUI.ui_mrktApp_futureCustomers_deleteConfirmForm(\''+id+'\');"><b>Delete Market Group</b></button>';
+	   content+='</div>'; // form-group
+	   
+	   content+='</div>'; // col-lg-12
+	   content+='</div>'; // row
+	   content+='</div>'; //container-fluid
+	   	   
+       content+='</div>'; // modal-body
+       content+='</div>'; // modal-content
+	   content+='</div>'; // modal-dialog
+	document.getElementById(id).innerHTML=content;
+	load_mrktApp_mrktGrp_select(manage_mrktApp_htmlElements.manage_mrktApp_update_fc_mrktGrp,'update',mrkGrps);
+	$('#'+id).modal();
+  }
 }
 var mrktAppUI = new MrktAppUI();
 var manage_mrktApp_htmlElements = { manage_mrktApp_updateExistingMrktGrpModal:'manage-mrktApp-updateExistingMrktGrpModal',
@@ -142,16 +254,18 @@ var manage_mrktApp_htmlElements = { manage_mrktApp_updateExistingMrktGrpModal:'m
 									manage_mrktApp_update_mrktGrp_deleteBtn:'manage-mrktApp-update-mrktGrp-deleteBtn',
 									manage_mrktApp_update_mrktGrp_old:'manage-mrktApp-update-oldMrktGrp',
 									manage_mrktApp_update_mrktGrp_new:'manage-mrktApp-update-newMrktGrp',
-									manage_mrktApp_add_fc_warnErrorMsg:'manage_mrktApp_add_fc_warnErrorMsg',
+									manage_mrktApp_updateExistingFcModal:'manage-mrktApp-updateExistingFcModal',
+									manage_mrktApp_view_fc:'manage-mrktApp-view-fc',
+									manage_mrktApp_add_fc_warnErrorMsg:'manage-mrktApp-add-fc-warnErrorMsg',
 									manage_mrktApp_add_fc_mobile:'manage-mrktApp-add-fc-mobile',
 									manage_mrktApp_add_fc_mrktGrp:'manage-mrktApp-add-fc-mrktGrp',
 									manage_mrktApp_update_fc_warnErrorMsg:'manage_mrktApp_update_fc_warnErrorMsg',
 									manage_mrktApp_update_fc_mobile:'manage-mrktApp-update-fc-mobile',
 									manage_mrktApp_update_fc_mrktGrp:'manage-mrktApp-update-fc-mrktGrp',
-									manage_mrktApp_update_fc_mrktGrp_editBtn:'manage-mrktApp-update-fc-mrktGrp-editBtn',
-									manage_mrktApp_update_fc_mrktGrp_saveBtn:'manage-mrktApp-update-fc-mrktGrp-saveBtn',
-									manage_mrktApp_update_fc_mrktGrp_resetBtn:'manage-mrktApp-update-fc-mrktGrp-resetBtn',
-									manage_mrktApp_update_fc_mrktGrp_deleteBtn:'manage-mrktApp-update-fc-mrktGrp-deleteBtn'
+									manage_mrktApp_update_fc_editBtn:'manage-mrktApp-update-fc-editBtn',
+									manage_mrktApp_update_fc_saveBtn:'manage-mrktApp-update-fc-saveBtn',
+									manage_mrktApp_update_fc_resetBtn:'manage-mrktApp-update-fc-resetBtn',
+									manage_mrktApp_update_fc_deleteBtn:'manage-mrktApp-update-fc-deleteBtn'
 								  };
 function enable_manage_mrktApp_marketGroup_update(){ // Shows Save and Reset Form Button
  document.getElementById(manage_mrktApp_htmlElements.manage_mrktApp_update_mrktGrp_new).disabled=false;

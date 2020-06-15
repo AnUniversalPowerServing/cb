@@ -122,4 +122,11 @@ class Database
 	  return $columnVal;
 	}
 
+	function getBlobInfo($sql,$columnName){
+	  $dbObj=new Database($this->serverName,$this->databaseName,$this->userName,$this->password);
+	  $conn = $dbObj->dbinteraction();
+      $result = mysqli_query($conn, $sql); 
+	  $row = mysqli_fetch_array($result);
+	  return $row[$columnName];
+	}
 }

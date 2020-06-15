@@ -1,25 +1,108 @@
 <script type="text/javascript">
-function submit_manage_mrktApp_marketManager_marketGroup_add(){
-// manage_mrktApp_htmlElements.manage_mrktApp_add_fc_warnErrorMsg
+function enable_manage_mrktApp_futureCustomers_update(){ // Shows Save and Reset Form Button
+ document.getElementById(manage_mrktApp_htmlElements.manage_mrktApp_update_fc_mrktGrp).disabled=false;
+ if(!$('#'+manage_mrktApp_htmlElements.manage_mrktApp_update_fc_editBtn).hasClass('hide-block')){
+	$('#'+manage_mrktApp_htmlElements.manage_mrktApp_update_fc_editBtn).addClass('hide-block'); 
+ }
+ if($('#'+manage_mrktApp_htmlElements.manage_mrktApp_update_fc_saveBtn).hasClass('hide-block')){
+	$('#'+manage_mrktApp_htmlElements.manage_mrktApp_update_fc_saveBtn).removeClass('hide-block'); 
+ }
+ if($('#'+manage_mrktApp_htmlElements.manage_mrktApp_update_fc_resetBtn).hasClass('hide-block')){
+	$('#'+manage_mrktApp_htmlElements.manage_mrktApp_update_fc_resetBtn).removeClass('hide-block'); 
+ }
+ if($('#'+manage_mrktApp_htmlElements.manage_mrktApp_update_fc_deleteBtn).hasClass('hide-block')){
+	$('#'+manage_mrktApp_htmlElements.manage_mrktApp_update_fc_deleteBtn).removeClass('hide-block'); 
+ }
+ 
+}  
+function disable_manage_mrktApp_futureCustomers_update(){ // Shows Edit and Reset Form Button
+ document.getElementById(manage_mrktApp_htmlElements.manage_mrktApp_update_fc_mrktGrp).disabled=true;
+ if($('#'+manage_mrktApp_htmlElements.manage_mrktApp_update_fc_editBtn).hasClass('hide-block')){
+	$('#'+manage_mrktApp_htmlElements.manage_mrktApp_update_fc_editBtn).removeClass('hide-block'); 
+ }
+ if(!$('#'+manage_mrktApp_htmlElements.manage_mrktApp_update_fc_saveBtn).hasClass('hide-block')){
+	$('#'+manage_mrktApp_htmlElements.manage_mrktApp_update_fc_saveBtn).addClass('hide-block'); 
+ }
+ if($('#'+manage_mrktApp_htmlElements.manage_mrktApp_update_fc_resetBtn).hasClass('hide-block')){
+	$('#'+manage_mrktApp_htmlElements.manage_mrktApp_update_fc_resetBtn).removeClass('hide-block'); 
+ }
+ if($('#'+manage_mrktApp_htmlElements.manage_mrktApp_update_fc_deleteBtn).hasClass('hide-block')){
+	$('#'+manage_mrktApp_htmlElements.manage_mrktApp_update_fc_deleteBtn).removeClass('hide-block'); 
+ }
+}
+function load_mrktApp_mrktGrp_select(id,mode,selectedValues){
+ mrktAppEndpoints.viewInfo_appMrktGrp({},function(response){
+   var content='';
+   for(var index=0;index<response.length;index++){
+	 content+='<option value="'+response[index]+'">'+response[index]+'</option>';
+   }
+   document.getElementById(id).innerHTML=content;
+   if(mode==='update'){ choose_mrktApp_mrktGrp_select(id,selectedValues); }
+ });
+}
+function choose_mrktApp_mrktGrp_select(id,selectedValues){
+ var options = document.getElementById(id).options;
+ var selVal = selectedValues.split(",");
+ for(var optIndex=0;optIndex<options.length;optIndex++){
+  for(var valIndex=0;valIndex<selVal.length;valIndex++){
+	if(options[optIndex].value === selVal[valIndex]){ options[optIndex].selected = true; }
+  } 
+ }
+}
+function manage_mrktApp_marketManager_futureCustomers_view(){
+ mrktAppUI.ui_mrktApp_futureCustomers_view(manage_mrktApp_htmlElements.manage_mrktApp_view_fc);
+}
+function submit_manage_mrktApp_marketManager_futureCustomers_add(){
+ VALIDATION_MESSAGE_ERROR='Missing ';
  var mobile = $('#'+manage_mrktApp_htmlElements.manage_mrktApp_add_fc_mobile).val();
  var mrktGrp = $('#'+manage_mrktApp_htmlElements.manage_mrktApp_add_fc_mrktGrp).val();
+ console.log("mobile: "+mobile);
+ console.log("mrktGrp: "+mrktGrp);
+ if(mrktGrp.length>0 && mobile.length>0){
+	mrktAppEndpoints.create_futureCustomer({ mob_code:'+91',mobileNumber:mobile,mgName:mrktGrp },function(response){
+	   VALIDATION_MESSAGE_ERROR=response.statusDesc;
+	   show_validate_msg(response.status.toLowerCase(),manage_mrktApp_htmlElements.manage_mrktApp_add_fc_warnErrorMsg);
+	   manage_mrktApp_marketManager_futureCustomers_view();
+	   $('#'+manage_mrktApp_htmlElements.manage_mrktApp_add_fc_mobile).val('');
+	   $('#'+manage_mrktApp_htmlElements.manage_mrktApp_add_fc_mrktGrp).val('');
+   });
+ } else {
+	if(mobile.length==0){
+	  VALIDATION_MESSAGE_ERROR+=' Mobile,'; 
+	  bootstrap_formField_trigger('error',manage_mrktApp_htmlElements.manage_mrktApp_add_fc_mobile); 
+	  show_validate_msg('error',manage_mrktApp_htmlElements.manage_mrktApp_add_fc_warnErrorMsg);
+	}
+	else if(mrktGrp.length==0){
+	  VALIDATION_MESSAGE_ERROR+=' Market Group,'; 
+	  bootstrap_formField_trigger('error',manage_mrktApp_htmlElements.manage_mrktApp_add_fc_mrktGrp); 
+	  show_validate_msg('error',manage_mrktApp_htmlElements.manage_mrktApp_add_fc_warnErrorMsg);
+	}
+ }
  
-//	manage_mrktApp_htmlElements.manage_mrktApp_update_fc_warnErrorMsg
-//	manage_mrktApp_htmlElements.manage_mrktApp_update_fc_mobile
-//	manage_mrktApp_htmlElements.manage_mrktApp_update_fc_mrktGrp
-//	manage_mrktApp_htmlElements.manage_mrktApp_update_fc_mrktGrp_editBtn
-//	manage_mrktApp_htmlElements.manage_mrktApp_update_fc_mrktGrp_saveBtn
-//	manage_mrktApp_htmlElements.manage_mrktApp_update_fc_mrktGrp_resetBtn
-//	manage_mrktApp_htmlElements.manage_mrktApp_update_fc_mrktGrp_deleteBtn
+ // manage_mrktApp_add_fc_warnErrorMsg:'manage_mrktApp_add_fc_warnErrorMsg',
+ // manage_mrktApp_add_fc_mobile:'manage-mrktApp-add-fc-mobile',
+ // manage_mrktApp_add_fc_mrktGrp:'manage-mrktApp-add-fc-mrktGrp',
+ // manage_mrktApp_update_fc_warnErrorMsg:'manage_mrktApp_update_fc_warnErrorMsg',
+ // manage_mrktApp_update_fc_mobile:'manage-mrktApp-update-fc-mobile',
+ // manage_mrktApp_update_fc_mrktGrp:'manage-mrktApp-update-fc-mrktGrp',
+ // manage_mrktApp_update_fc_mrktGrp_editBtn:'manage-mrktApp-update-fc-mrktGrp-editBtn',
+ // manage_mrktApp_update_fc_mrktGrp_saveBtn:'manage-mrktApp-update-fc-mrktGrp-saveBtn',
+ // manage_mrktApp_update_fc_mrktGrp_resetBtn:'manage-mrktApp-update-fc-mrktGrp-resetBtn',
+ // manage_mrktApp_update_fc_mrktGrp_deleteBtn:'manage-mrktApp-update-fc-mrktGrp-deleteBtn'
 }
-function reset_manage_mrktApp_marketManager_marketGroup_add(){
- var mobile = $('#'+manage_mrktApp_htmlElements.manage_mrktApp_update_fc_mobile).val();
- var mrktGrp = $('#'+manage_mrktApp_htmlElements.manage_mrktApp_update_fc_mrktGrp).val();	
+function reset_manage_mrktApp_marketManager_futureCustomers_add(){
+ document.getElementById(manage_mrktApp_htmlElements.manage_mrktApp_add_fc_warnErrorMsg).innerHTML='';
+ $('#'+manage_mrktApp_htmlElements.manage_mrktApp_add_fc_mobile).val('');
+ $('#'+manage_mrktApp_htmlElements.manage_mrktApp_add_fc_mrktGrp).val('');
 }
-function submit_manage_mrktApp_marketManager_marketGroup_update(){
+function manage_mrktApp_marketManager_futureCustomers_update(index){
+ mrktAppUI.ui_mrktApp_futureCustomers_update(manage_mrktApp_htmlElements.manage_mrktApp_updateExistingFcModal,index);
+ disable_manage_mrktApp_futureCustomers_update();
+}
+function submit_manage_mrktApp_marketManager_futureCustomers_update(){
 	
 }
-function reset_manage_mrktApp_marketManager_marketGroup_update(){
+function reset_manage_mrktApp_marketManager_futureCustomers_update(){
 	
 }
 </script>
@@ -60,7 +143,8 @@ function reset_manage_mrktApp_marketManager_marketGroup_update(){
 			<div class="row">
 			  <div align="right" class="col-lg-12">
 			  <!-- -->
-			  <button class="btn btn-blue-o" data-toggle="modal" data-target="#createFutureCustomersModal"><b>+ Add New Future Customer</b></button>
+			  <button class="btn btn-blue-o" data-toggle="modal" data-target="#createFutureCustomersModal"
+			  onclick="javascript:load_mrktApp_mrktGrp_select('manage-mrktApp-add-fc-mrktGrp','add',null);"><b>+ Add New Future Customer</b></button>
 			  <!-- -->
 			  </div><!--/.col-lg-12 -->
 			</div><!--/.row -->
@@ -74,43 +158,8 @@ function reset_manage_mrktApp_marketManager_marketGroup_update(){
 								<div class="col-lg-12" style="background-color:#eee;"><h5><b>View Future Customers</b></h5></div>
 							  </div><!--/.row -->
 							  <div class="row mtop15p">
-								<div class="col-lg-12">
+								<div id="manage-mrktApp-view-fc" class="col-lg-12">
 								<!-- -->
-								    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
-										<thead>
-											<tr>
-												<th>S.No.</th>
-												<th>Mobile Number</th>
-												<th>Market Group</th>
-												<th>Status</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr class="odd gradeX">
-												<td>1</td>
-												<td>+91-9160869337</td>
-												<td>
-												    <div><span class="label label-primary">MARKET GROUP #1</span></div>
-												    <div><span class="label label-success">MARKET GROUP #2</span></div>
-												</td>
-												<td class="center">
-												   <div><span class="label label-success">REGISTERED</span></div>
-												   <div><span class="label label-success">ANDROID APP</span></div>
-												</td>
-											</tr>
-											<tr class="even gradeC">
-												<td>1</td>
-												<td>+91-6300193369</td>
-												<td>
-												    <div><span class="label label-primary">MARKET GROUP #1</span></div>
-												    <div><span class="label label-success">MARKET GROUP #2</span></div>
-												</td>
-												<td class="center">
-												   <div><span class="label label-danger">UNREGISTERED</span></div>
-												</td>
-											</tr>
-										</tbody>
-									</table><!-- /.table-responsive -->
 								  <!-- -->
 								</div><!--/.col-lg-12 -->
 							  </div><!--/.row -->
@@ -137,6 +186,7 @@ function reset_manage_mrktApp_marketManager_marketGroup_update(){
 		  <div class="row">
 				 <div class="col-lg-12 mtop15p">
 				   
+				   <div id="manage-mrktApp-add-fc-warnErrorMsg" class="form-group"></div>  
 				   <div class="form-group">
 					<label>Mobile Number</label>
 				    <!-- -->
@@ -152,14 +202,14 @@ function reset_manage_mrktApp_marketManager_marketGroup_update(){
 					  </div>
 					  <!-- -->
 					 </div><!--/.input-btn-group -->
-					 <input class="form-control" placeholder="Enter Mobile Number">
+					 <input class="form-control" id="manage-mrktApp-add-fc-mobile" placeholder="Enter Mobile Number">
 			        </div><!--/.input-group -->
 					<!-- -->
 				   </div><!--/.form-group -->
 				   
 				   <div class="form-group">
 					<label>Market Group</label>
-					<select id="dates-field2" class="form-control" multiple="multiple">
+					<select id="manage-mrktApp-add-fc-mrktGrp" class="form-control" multiple="multiple">
 						<option value="cheese">Cheese</option>
 						<option value="tomatoes">Tomatoes</option>
 						<option value="mozarella">Mozzarella</option>
@@ -170,8 +220,8 @@ function reset_manage_mrktApp_marketManager_marketGroup_update(){
 				   </div>
 
 				   <div align="center" class="form-group">
-					<button class="btn btn-success-o"><b>Add Future Customers</b></button>
-					<button class="btn btn-danger-o"><b>Reset Future Customers Form</b></button>
+					<button class="btn btn-success-o" onclick="javascript:submit_manage_mrktApp_marketManager_futureCustomers_add();"><b>Add Future Customers</b></button>
+					<button class="btn btn-danger-o" onclick="javascript:reset_manage_mrktApp_marketManager_futureCustomers_add();"><b>Reset Future Customers Form</b></button>
 				   </div><!--/.form-group -->
 				   
 			     </div><!--/.col-lg-12 -->
@@ -202,6 +252,10 @@ function reset_manage_mrktApp_marketManager_marketGroup_update(){
 
 </div><!--/.container-fluid -->
 
-<!-- Update App Config ::: START -->
+<!-- Update Market Group ::: START -->
 <div id="manage-mrktApp-updateExistingMrktGrpModal" class="modal fade" role="dialog"></div>
-<!-- Update App Config ::: END -->
+<!-- Update Market Group ::: END -->
+
+<!-- Update Future Customers ::: START -->
+<div id="manage-mrktApp-updateExistingFcModal" class="modal fade" role="dialog"></div>
+<!-- Update Future Customers ::: END -->

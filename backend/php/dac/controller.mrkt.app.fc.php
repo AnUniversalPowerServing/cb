@@ -47,12 +47,16 @@
 	    $mob_code = $_POST["mob_code"];
 	    $mobileNumber = $_POST["mobileNumber"];
 		$mgName = array();
-		if(isset($_POST["mgName"])){ $mgName = strtoupper($_POST["mgName"]); }
+		if(isset($_POST["mgName"])){ $mgName = $_POST["mgName"]; }
 		$query='';
+		$mrktGrps='';
 		for($index=0;$index<count($mgName);$index++){
-	      $query.=$appMrktFC->query_add_futureCustomerMobile($mob_code,$mobileNumber,$mgName[$index]);
+		  $mrktGrp=strtoupper($mgName[$index]);
+	      $query.=$appMrktFC->query_add_futureCustomerMobile($mob_code,$mobileNumber,$mrktGrp);
+		  $mrktGrps.=$mrktGrp.', ';
 		}
-	    echo $database->addupdateData($query,"Added Future Customer Mobile Number <b>\"".$mob_code."-".$mobileNumber."\"</b> to Market Groups \"".$mgName."\" Successfully. ");
+		$mrktGrps=chop($mrktGrps,', ');
+	    echo $database->addupdateData($query,"Added Future Customer Mobile Number <b>\"".$mob_code."-".$mobileNumber."\"</b> to Market Groups <b>\"".$mrktGrps."\"</b> Successfully. ");
 	  } else {
 	     $missParam = '';
 		 if(!isset($_POST["mob_code"])){ $missParam.='mob_code,'; }
