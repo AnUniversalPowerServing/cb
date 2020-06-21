@@ -1,7 +1,17 @@
 <?php
 class AdminAccountAuth {
   function query_view_userAccountLogin($userName,$acc_pwd){
-	return "SELECT * FROM admin_accounts_auth WHERE userName='".$userName."' AND acc_pwd='".$acc_pwd."';";
+	$sql="SELECT * FROM admin_accounts_auth, admin_accounts_roles WHERE userName='".$userName."' AND acc_pwd='".$acc_pwd."' AND ";
+	$sql.="admin_accounts_auth.role=admin_accounts_roles.role";
+	return $sql;
+  }
+  function query_view_userAccessPermissions($role){
+	 $sql="SELECT * FROM admin_mod_access_perm, admin_mod_topc, admin_mod_pages, admin_mod_info WHERE ";
+	 $sql.="admin_mod_access_perm.topcName=admin_mod_topc.topcName AND ";
+	 $sql.="admin_mod_topc.pageName=admin_mod_pages.pageName AND ";
+	 $sql.="admin_mod_pages.moduleName=admin_mod_info.moduleName AND admin_mod_access_perm.role='".$role."';";
+	 $sql.="";
+	 return $sql;
   }
   function query_add_adminAccounts($role_Id, $surName, $name, $gender, $email, $mob_code, $mobile, $userName, $acc_pwd, $acc_active){
 	$sql="INSERT INTO admin_accounts_auth(role_Id, surName, name, gender, email, mob_code, mobile, userName, acc_pwd, acc_active) ";

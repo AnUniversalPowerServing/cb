@@ -167,16 +167,15 @@ function submit_manage_devAppConfig_update_save(index){
  document.getElementById(manage_devAppConfig_htmlElements.manage_devAppConfig_update_viewParamValue_+index).innerHTML='<b>'+paramValue+'</b>';
  document.getElementById(manage_devAppConfig_htmlElements.manage_devAppConfig_update_viewParamDesc_+index).innerHTML=paramDesc;
  devAppConfigEndpoints.update_configParam({paramName:paramName,paramValue:paramValue,paramDesc:paramDesc},function(response){
-   if(response.status.toLowerCase === 'success'){ alert_display_success(response.statusDesc,'#'); }
+   if(response.status.toLowerCase() === 'success'){ alert_display_success(response.statusDesc,'#'); }
    else { alert_display_error(response.statusDesc); }
  });
 }
-
 function submit_manage_devAppConfig_delete(index){
   var paramName = $('#'+manage_devAppConfig_htmlElements.manage_devAppConfig_update_inputparamName_+index).val();
   devAppConfigEndpoints.delete_configParam({paramName:paramName},function(response){
 	$('#'+manage_devAppConfig_htmlElements.manage_devAppConfig_deleteExistingParamModal).modal('hide');
-	if(response.status.toLowerCase === 'success'){ alert_display_success(response.statusDesc,'#'); }
+	if(response.status.toLowerCase() === 'success'){ alert_display_success(response.statusDesc,'#'); }
 	else { alert_display_error(response.statusDesc); }
 	manage_devAppConfig_view();	
   });
@@ -187,15 +186,15 @@ function submit_manage_devAppConfig_add(){
  var paramDesc = $('#'+manage_devAppConfig_htmlElements.manage_devAppConfig_add_inputparamDesc).val();
  if(paramName.length>0 && paramValue.length>0 && paramDesc.length>0){
 	 devAppConfigEndpoints.create_configParam({paramName:paramName,paramValue:paramValue,paramDesc:paramDesc},function(response){
-	   manage_devAppConfig_view();
 	   VALIDATION_MESSAGE_ERROR=response.statusDesc;
-	   show_validate_msg(response.status,manage_devAppConfig_htmlElements.manage_devAppConfig_add_warnErrorMsg);
+	   show_validate_msg(response.status.toLowerCase(),manage_devAppConfig_htmlElements.manage_devAppConfig_add_warnErrorMsg);
 	   $('#'+manage_devAppConfig_htmlElements.manage_devAppConfig_add_inputparamName).val('');
 	   $('#'+manage_devAppConfig_htmlElements.manage_devAppConfig_add_inputparamValue).val('');
        $('#'+manage_devAppConfig_htmlElements.manage_devAppConfig_add_inputparamDesc).val('');
 	   bootstrap_formField_trigger('remove',[manage_devAppConfig_htmlElements.manage_devAppConfig_add_inputparamName,
 											manage_devAppConfig_htmlElements.manage_devAppConfig_add_inputparamValue, 
 											manage_devAppConfig_htmlElements.manage_devAppConfig_add_inputparamDesc]);
+	   manage_devAppConfig_view();
 	 });
  } else { 
      VALIDATION_MESSAGE_ERROR='Missing ';
@@ -214,7 +213,6 @@ function submit_manage_devAppConfig_add(){
 	 show_validate_msg('error',manage_devAppConfig_htmlElements.manage_devAppConfig_add_warnErrorMsg);
  }
 }
-
 function reset_manage_devAppConfig_add(){
  $('#'+manage_devAppConfig_htmlElements.manage_devAppConfig_add_inputparamName).val('');
  $('#'+manage_devAppConfig_htmlElements.manage_devAppConfig_add_inputparamValue).val('');

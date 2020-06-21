@@ -1,0 +1,25 @@
+"acc_perm":{ "mod#1":{ 
+					   "page#1":{ "pageURL":"_________",
+								  "topics": { "topic#1":["C","R","U","D"],
+											  "topic#2":["C","R","U","D"]
+											}
+								},
+					   "page#2":{ "pageURL":"_________",
+								  "topics": { "topic#3":["C","R","U","D"],
+											  "topic#4":["C","R","U","D"]
+											}
+								},
+					 },
+			 "mod#2":{ 
+					   "page#3":{ "pageURL":"_________",
+								  "topics": { "topic#5":["C","R","U","D"],
+											  "topic#6":["C","R","U","D"]
+											}
+								},
+					   "page#4":{ "pageURL":"_________",
+								  "topics": { "topic#7":["C","R","U","D"],
+											  "topic#8":["C","R","U","D"]
+											}
+								},
+					 }
+			}

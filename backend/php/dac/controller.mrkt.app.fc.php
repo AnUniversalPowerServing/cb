@@ -70,6 +70,57 @@
 	 echo $database->getJSONData($appMrktFC->query_view_futureCustomerWithMarketGroup());
 	}
 	else if($_GET["action"]=='APP_FC_UPDATE'){ 
+	 if(isset($_POST["mob_code"]) && isset($_POST["mobileNumber"]) && isset($_POST["mgNames"])){
+		$mob_code = $_POST["mob_code"];
+		$mobileNumber = $_POST["mobileNumber"];
+	    $mgNames = $_POST["mgNames"];
+		$deleteMgList = array();
+		$insertMgList = array();
+		$dbMgList = array();
+		$dejsonData = json_decode($database->getJSONData($appMrktFC->query_view_futureCustomerWithMobile($mob_code,$mobileNumber)));
+		for($index=0;$index<count($dejsonData);$index++){
+		 $dbMgList[$index] = $dejsonData[$index]->{'mgName'};
+		}
+		$insertMgList = array_values(array_diff($mgNames,$dbMgList)); // Consists of list that to Add 
+        $deleteMgList = array_values(array_diff($dbMgList,$mgNames)); // Consists of list that to Delete
+		$statusDesc = '';
+		if(count($insertMgList)>0){
+			$statusDesc = "Added Mobile Number <b>\"".$mob_code."-".$mobileNumber."\"</b> to Market Groups ";
+			for($index=0;$index<count($insertMgList);$index++){
+			 $mgName = $insertMgList[$index];
+			 $query=$appMrktFC->query_add_futureCustomerMobile($mob_code,$mobileNumber,$mgName);
+			 $result=json_decode($database->addupdateData($query,"<b>\"".$mgName."\"</b>,"));
+			 $statusDesc.=$result->{"statusDesc"};
+			 $statusDesc=chop($statusDesc,",");
+			 $statusDesc.=' successfully. ';
+			}
+		}
+		if(count($deleteMgList)>0){
+			$statusDesc.= "Removed Mobile Number <b>\"".$mob_code."-".$mobileNumber."\"</b> from Market Groups ";
+			for($index=0;$index<count($deleteMgList);$index++){
+			 $mgName = $deleteMgList[$index];
+			 $query = $appMrktFC->query_deleteOnUpdate_futureCustomer($mob_code,$mobileNumber,$mgName);
+			 $result=json_decode($database->addupdateData($query,"<b>\"".$mgName."\"</b>,"));
+			 $statusDesc.=$result->{"statusDesc"};
+			 $statusDesc=chop($statusDesc,",");
+			 $statusDesc.=' successfully. ';
+			}	
+		}
+		if(strlen($statusDesc)>0){
+		   echo $successErrorHandler->successErrorInfo($APP_MSG_SUCCESS,$statusDesc);
+		} else {
+		   echo $successErrorHandler->successErrorInfo($APP_MSG_ERROR,"No New Changes are found to Update. ");
+		}
+		
+	 } else {
+		$missParam = '';
+		if(!isset($_POST["mob_code"])){ $missParam.='mob_code,'; }
+		if(!isset($_POST["mobileNumber"])){ $missParam.='mobileNumber,'; }
+		if(!isset($_POST["mgNames"])){ $missParam.='mgNames,'; }
+		$missParam = chop($missParam,',');
+		echo $successErrorHandler->missingParams($missParam); 
+	 }
+	 /*
 	 if(isset($_POST["fcmg_Id"]) && isset($_POST["mob_code"]) && isset($_POST["mobileNumber"]) && isset($_POST["mgName"])){
 		$fcmg_Id = $_POST["fcmg_Id"];
 		$mob_code = $_POST["mob_code"];
@@ -86,14 +137,20 @@
 		$missParam = chop($missParam,',');
 		echo $successErrorHandler->missingParams($missParam);
 	 }
+	 */
 	}
 	else if($_GET["action"]=='APP_FC_DELETE'){ 
-	  if(isset($_GET["fcmg_Id"])){
-		  $fcmg_Id = $_GET["fcmg_Id"];
-		  $query = $appMrktFC->query_delete_futureCustomer($fcmg_Id);
-		  echo $database->addupdateData($query,"Deleted Future Customer Info Successfully. ");
+	  if(isset($_POST["mob_code"]) && isset($_POST["mobileNumber"])){
+		  $mob_code = $_POST["mob_code"];
+		  $mobileNumber = $_POST["mobileNumber"];
+		  $query = $appMrktFC->query_delete_futureCustomerByMobile($mob_code,$mobileNumber);
+		  echo $database->addupdateData($query,"Deleted Future Customer Info <b>\"".$mob_code."-".$mobileNumber."\"</b> Successfully. ");
 	  } else {
-		  echo $successErrorHandler->missingParams('fcmg_Id');
+		 $missParam = '';
+		 if(!isset($_POST["mob_code"])){ $missParam.='mob_code,'; }
+		 if(!isset($_POST["mobileNumber"])){ $missParam.='mobileNumber,'; }
+		 $missParam = chop($missParam,',');
+		 echo  $successErrorHandler->missingParams($missParam);
 	  }
 	}
  } else {

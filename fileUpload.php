@@ -1,3 +1,4 @@
+<?php echo md5("@ANUPanup123"); ?>
 <form name="frmImage" enctype="multipart/form-data" action="backend/php/cj/controller.file.upload.php" method="post" class="frmImageUpload">
   <label>Upload Image File:</label><br /> 
   <input type="hidden" name="action" value="FILE_PROC_UPLOAD"/>

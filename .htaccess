@@ -6,8 +6,6 @@ php_value date.timezone 'Asia/kolkata'
 
 DirectoryIndex index.php
 
-
-
 RewriteEngine on
 
 # Rewrite URLs
@@ -37,7 +35,7 @@ RewriteRule mrkt/app/mrktGrp/update backend/php/dac/controller.mrkt.app.fc.php?a
 
 RewriteRule mrkt/app/fc/view/all backend/php/dac/controller.mrkt.app.fc.php?action=APP_FC_VIEW [L,QSA]
 RewriteRule mrkt/app/fc/add backend/php/dac/controller.mrkt.app.fc.php?action=APP_FC_ADD [L,QSA]
-RewriteRule mrkt/app/fc/delete/([^/]+)$ backend/php/dac/controller.mrkt.app.fc.php?action=APP_FC_DELETE&fcmg_Id=$1 [L,QSA]
+RewriteRule mrkt/app/fc/delete backend/php/dac/controller.mrkt.app.fc.php?action=APP_FC_DELETE [L,QSA]
 RewriteRule mrkt/app/fc/update backend/php/dac/controller.mrkt.app.fc.php?action=APP_FC_UPDATE [L,QSA]
 
 # Customer Accounts
@@ -50,8 +48,8 @@ RewriteRule user/auth/account/update backend/php/dac/controller.user.accounts.au
 RewriteRule user/auth/access backend/php/dac/controller.user.accounts.auth.php?action=USER_AUTH_LOGIN [L,QSA]
 
 # General Pages
-RewriteRule user/auth auth-form-user.php [L,QSA]
-RewriteRule admin/auth auth-form-admin.php [L,QSA]
+RewriteRule user/auth pages/auth-form-user.php [L,QSA]
+RewriteRule admin/auth pages/admin-auth-form.php [L,QSA]
 
 # Admin Pages
 RewriteRule admin/manage/dashboard pages/admin-manage-dashboard.php [L,QSA]

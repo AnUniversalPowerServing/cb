@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title></title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="styles/api/bootstrap-advanced.css">
-<link rel="stylesheet" href="styles/api/core-skeleton.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.js"></script>
-<script src="js/common/endpoints.auth.admin.js"></script>
-<script src="js/common/session.js"></script>
-<script src="js/api/bootstrap-advanced.js"></script>
-<script src="js/api/core-skeleton.js"></script>
-<script src="js/common/validations.js"></script>
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <meta name="description" content="">
+ <meta name="author" content="">
+ <title>Administrator Account</title>
+ <?php include_once 'templates/app_init.php'; ?>
+ <link href="<?php echo $PROJECT_URL ?>vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+ <link href="<?php echo $PROJECT_URL ?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+ <link href="<?php echo $PROJECT_URL ?>vendor/bootstrap-toggle/css/bootstrap-toggle.min.css" rel="stylesheet">
+ <link rel="stylesheet" href="<?php echo $PROJECT_URL ?>pages/styles/api/bootstrap-advanced.css">
+ <link rel="stylesheet" href="<?php echo $PROJECT_URL ?>pages/styles/api/core-skeleton.css">
+ <script src="<?php echo $PROJECT_URL ?>vendor/jquery/jquery.min.js"></script>
+ <script src="<?php echo $PROJECT_URL ?>vendor/bootstrap/js/bootstrap.min.js"></script>
+ <script src="<?php echo $PROJECT_URL ?>vendor/bootstrap-toggle/js/bootstrap-toggle.min.js"></script>
+ <script src="<?php echo $PROJECT_URL ?>pages/js/common/endpoints.auth.admin.js"></script>
+ <script src="<?php echo $PROJECT_URL ?>pages/js/common/session.js"></script>
+ <script src="<?php echo $PROJECT_URL ?>pages/js/api/bootstrap-advanced.js"></script>
+ <script src="<?php echo $PROJECT_URL ?>pages/js/api/core-skeleton.js"></script>
+ <script src="<?php echo $PROJECT_URL ?>pages/js/common/validations.js"></script>
 <style>
 body { background-color:#17941c;color:#fff; }
 </style>
@@ -41,16 +41,16 @@ function submit_auth_login_adminAccountForm_authenticate(){
  if(valid_userName && valid_password){
 	// Check Username with Password exists or not
     document.getElementById(auth_login_adminAccountForm_htmlElements.auth_login_adminAccountForm_warnErrorMsg).innerHTML='';
-	authEndpoints.adminAccounts_viewInfo_accountLogin({ userName:userName, acc_pwd:password }, function(response){
-	  if(response.length==0){
-		 VALIDATION_MESSAGE_ERROR='Incorrect Username or Password.';
-		 show_validate_msg('error',auth_login_adminAccountForm_htmlElements.auth_login_adminAccountForm_warnErrorMsg); 
-		 bootstrap_formField_trigger('error',[auth_login_adminAccountForm_htmlElements.auth_login_adminAccountForm_userName,
-										   auth_login_adminAccountForm_htmlElements.auth_login_adminAccountForm_password]);
-	  } else {
+	adminAuthEndpoints.auth_accountLogin({ userName:userName, acc_pwd:password }, function(response){
+	   VALIDATION_MESSAGE_ERROR=response.statusDesc;
+	   show_validate_msg(response.status.toLowerCase(),auth_login_adminAccountForm_htmlElements.auth_login_adminAccountForm_warnErrorMsg);
+	   bootstrap_formField_trigger(response.status.toLowerCase(),[auth_login_adminAccountForm_htmlElements.auth_login_adminAccountForm_userName,
+										   auth_login_adminAccountForm_htmlElements.auth_login_adminAccountForm_password]); 
+	   console.log(response.status.toLowerCase());
+	   if(response.status.toLowerCase()==='success'){
 		  // send to Admin Dashboard
 		  window.location.href='admin/manage/dashboard';
-	  }
+	   }
 	});
  } else { 
       show_validate_msg('error',auth_login_adminAccountForm_htmlElements.auth_login_adminAccountForm_warnErrorMsg);

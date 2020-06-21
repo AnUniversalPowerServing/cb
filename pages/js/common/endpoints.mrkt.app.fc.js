@@ -26,8 +26,7 @@ class MrktAppEndpoints {
   }
   	
   delete_futureCustomer(inputData,respFunc){
-	var fcmg_Id = inputData.fcmg_Id;
-	js_ajax('POST','mrkt/app/fc/delete/'+fcmg_Id,inputData,function(response){ console.log(response);response=JSON.parse(response);respFunc(response); });  
+	js_ajax('POST','mrkt/app/fc/delete',inputData,function(response){ console.log(response);response=JSON.parse(response);respFunc(response); });  
   }
   
   update_futureCustomer(inputData,respFunc){
