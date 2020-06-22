@@ -74,13 +74,18 @@ class DevAppConfigUI {
 		  content+='placeholder="Enter Parameter Desc">'+response[index].paramDesc+'</textarea>';
 		  content+='</div>';
 		  content+='</td>';
-		  content+='<td><i id="'+manage_devAppConfig_htmlElements.manage_devAppConfig_view_actionsEdit_+index+'" class="fa fa-edit curpoint" ';
+		  content+='<td>';
+		  if(PANEL_TOPIC_APPCONFIG_UPDATE==='Y'){
+		  content+='<i id="'+manage_devAppConfig_htmlElements.manage_devAppConfig_view_actionsEdit_+index+'" class="fa fa-edit curpoint" ';
 		  content+='onclick="javascript:manage_devAppConfig_update_editForm('+index+');"></i>';
 		  content+='<i id="'+manage_devAppConfig_htmlElements.manage_devAppConfig_view_actionsSave_+index+'"class="fa fa-floppy-o curpoint hide-block" ';
 		  content+='onclick="javascript:manage_devAppConfig_update_saveForm('+index+');"></i>';
+		  }
+		  if(PANEL_TOPIC_APPCONFIG_DELETE==='Y'){
 		  content+='<i class="fa fa-close curpoint" ';
 		  content+='onclick="javascript:devAppConfigUI.ui_devAppConfig_deleteConfirmForm(\''+manage_devAppConfig_htmlElements.manage_devAppConfig_deleteExistingParamModal+'\','+index+');"></i>';
 		  content+='</td>';
+		  }
 		  content+='</tr>';
 		  }
 		  } else {

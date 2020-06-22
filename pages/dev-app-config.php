@@ -8,12 +8,27 @@
   <meta name="author" content="">
   <title>App Config</title>
   <?php include_once 'templates/app_init.php'; ?>
+  <?php
+	 $PANEL_MODULE = 'Developer';
+	 $PANEL_PAGE = 'App Config';
+	 $PANEL_TOPIC_APPCONFIG = 'Application Configuration';
+	 $PANEL_TOPIC_APPCONFIG_CREATE = accPermission($PANEL_MODULE,$PANEL_PAGE,$PANEL_TOPIC_APPCONFIG,'C');
+	 $PANEL_TOPIC_APPCONFIG_READ = accPermission($PANEL_MODULE,$PANEL_PAGE,$PANEL_TOPIC_APPCONFIG,'R');
+	 $PANEL_TOPIC_APPCONFIG_UPDATE = accPermission($PANEL_MODULE,$PANEL_PAGE,$PANEL_TOPIC_APPCONFIG,'U');
+	 $PANEL_TOPIC_APPCONFIG_DELETE = accPermission($PANEL_MODULE,$PANEL_PAGE,$PANEL_TOPIC_APPCONFIG,'D');
+  ?>
   <link href="<?php echo $PROJECT_URL ?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="<?php echo $PROJECT_URL ?>vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
   <link href="<?php echo $PROJECT_URL ?>vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
   <link href="<?php echo $PROJECT_URL ?>vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
   <link href="<?php echo $PROJECT_URL ?>vendor/sb-admin/css/sb-admin-2.css" rel="stylesheet">
   <link href="<?php echo $PROJECT_URL ?>vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <script type="text/javascript">
+   var PANEL_TOPIC_APPCONFIG_CREATE = '<?php echo $PANEL_TOPIC_APPCONFIG_CREATE ?>';
+   var PANEL_TOPIC_APPCONFIG_READ = '<?php echo $PANEL_TOPIC_APPCONFIG_READ; ?>';
+   var PANEL_TOPIC_APPCONFIG_UPDATE = '<?php echo $PANEL_TOPIC_APPCONFIG_UPDATE; ?>';
+   var PANEL_TOPIC_APPCONFIG_DELETE = '<?php echo $PANEL_TOPIC_APPCONFIG_DELETE; ?>';
+  </script>
   <script src="<?php echo $PROJECT_URL ?>vendor/jquery/jquery.min.js"></script>
   <script src="<?php echo $PROJECT_URL ?>vendor/bootstrap/js/bootstrap.min.js"></script>
   <script src="<?php echo $PROJECT_URL ?>vendor/metisMenu/metisMenu.min.js"></script>
@@ -41,12 +56,20 @@
 		     </div><!-- /.col-lg-12 -->
 		   </div><!--/.row -->
 
-<!-- Add New Config ::: START -->
+
+<?php if($PANEL_TOPIC_APPCONFIG_CREATE=='Y'){ ?>
 <div class="row">
  <div align="right" class="col-lg-12">
    <button class="btn btn-default" data-toggle="modal" data-target="#addNewConfigParamModal"><b>+ Add New Parameter</b></button>
  </div><!-- /.col-lg-12 -->
 </div><!--/.row -->
+<?php } ?>
+<?php if($PANEL_TOPIC_APPCONFIG_READ=='Y'){ ?>
+<div class="row mtop15p">
+  <div id="manage-devAppConfig-view-configInfo" class="col-lg-12"></div><!-- /.col-lg-12 -->
+</div><!--/.row -->
+<?php } ?>
+<!-- Add New Config ::: START -->
 <div id="addNewConfigParamModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -92,21 +115,12 @@
   </div><!--/.modal-dialog -->
 </div><!--/.modal -->
 <!-- Add New Config ::: END -->
-		   
-		   <div class="row mtop15p">
-		     <div id="manage-devAppConfig-view-configInfo" class="col-lg-12"></div><!-- /.col-lg-12 -->
-		   </div><!--/.row -->
-			
-			<!-- Update App Config ::: START -->
-			<div id="manage-devAppConfig-updateExistingParamModal" class="modal fade" role="dialog"></div>
-			<!-- Update App Config ::: END -->
-			
-			<!-- Delete App Config ::: START -->
-			<div id="manage-devAppConfig-deleteExistingParamModal" class="modal fade" role="dialog"></div>
-			<!-- Delete App Config ::: END -->
-
-
-		   
+<!-- Update App Config ::: START -->
+<div id="manage-devAppConfig-updateExistingParamModal" class="modal fade" role="dialog"></div>
+<!-- Update App Config ::: END -->
+<!-- Delete App Config ::: START -->
+<div id="manage-devAppConfig-deleteExistingParamModal" class="modal fade" role="dialog"></div>
+<!-- Delete App Config ::: END -->   
 		</div><!-- /#page-wrapper -->
     </div><!-- /#wrapper -->
 </body>
