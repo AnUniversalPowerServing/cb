@@ -1,3 +1,14 @@
+<?php 
+include_once 'templates/app_init.php';
+if(isset($_SESSION["ADMIN_ACCOUNT_ROLENAME"])){
+  $PANEL_MODULE = 'Manage Accounts';
+  $PANEL_PAGE = 'User Roles';
+  $PANEL_TOPIC_USERACCOUNTROLES = 'User Account Roles';
+  $PANEL_TOPIC_USERACCOUNTROLES_CREATE = accessPermissions($PANEL_TOPIC_USERACCOUNTROLES,'C');
+  $PANEL_TOPIC_USERACCOUNTROLES_READ = accessPermissions($PANEL_TOPIC_USERACCOUNTROLES,'R');
+  $PANEL_TOPIC_USERACCOUNTROLES_UPDATE = accessPermissions($PANEL_TOPIC_USERACCOUNTROLES,'U');
+  $PANEL_TOPIC_USERACCOUNTROLES_DELETE = accessPermissions($PANEL_TOPIC_USERACCOUNTROLES,'D');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,16 +18,6 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <title>Manage User Accounts</title>
-  <?php include_once 'templates/app_init.php'; ?>
-  <?php
-	 $PANEL_MODULE = 'Manage Accounts';
-	 $PANEL_PAGE = 'User Roles';
-	 $PANEL_TOPIC_USERACCOUNTROLES = 'User Account Roles';
-	 $PANEL_TOPIC_USERACCOUNTROLES_CREATE = accPermission($PANEL_MODULE,$PANEL_PAGE,$PANEL_TOPIC_USERACCOUNTROLES,'C');
-	 $PANEL_TOPIC_USERACCOUNTROLES_READ = accPermission($PANEL_MODULE,$PANEL_PAGE,$PANEL_TOPIC_USERACCOUNTROLES,'R');
-	 $PANEL_TOPIC_USERACCOUNTROLES_UPDATE = accPermission($PANEL_MODULE,$PANEL_PAGE,$PANEL_TOPIC_USERACCOUNTROLES,'U');
-	 $PANEL_TOPIC_USERACCOUNTROLES_DELETE = accPermission($PANEL_MODULE,$PANEL_PAGE,$PANEL_TOPIC_USERACCOUNTROLES,'D');
-  ?>
   <link href="<?php echo $PROJECT_URL ?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="<?php echo $PROJECT_URL ?>vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
   <link href="<?php echo $PROJECT_URL ?>vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
@@ -90,5 +91,5 @@
 		</div><!-- /#page-wrapper -->
     </div><!-- /#wrapper -->
 </body>
-
 </html>
+<?php } else { header("Location:".$PROJECT_URL.'admin/auth'); } ?>

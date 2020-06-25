@@ -17,8 +17,14 @@ class AdminAccountsRolesUI {
 	  content+='<div class="list-group">';
 	  content+='<div class="list-group-item" style="background-color:'+darkColors[colorIndex]+';color:#fff;">';
 	  content+='<b>'+response[index].role+'</b> <span class="pull-right">';
+	  if(PANEL_TOPIC_USERACCOUNTROLES_UPDATE==='Y'){
 	  content+='<i class="fa fa-edit curpoint" onclick="javascript:adminAccountsRolesUI.ui_adminRoles_updateForm(\'manage-adminRoles-updateExistingRoleModal\','+index+');"></i>';
-	  content+='&nbsp;&nbsp;&nbsp;<i class="fa fa-close curpoint" onclick="javascript:adminAccountsRolesUI.ui_adminRoles_deleteConfirmForm(\'manage-adminRoles-deleteExistingRoleModal\','+index+');"></i></span>';
+	  }
+	  content+='&nbsp;&nbsp;&nbsp;';
+	  if(PANEL_TOPIC_USERACCOUNTROLES_DELETE==='Y'){
+	  content+='<i class="fa fa-close curpoint" onclick="javascript:adminAccountsRolesUI.ui_adminRoles_deleteConfirmForm(\'manage-adminRoles-deleteExistingRoleModal\','+index+');"></i>';
+	  }
+	  content+='</span>';
 	  content+='</div>';//.list-group-item
 	  content+='<div class="list-group-item" style="background-color:#e4d1d1;">'+response[index].roleDesc+'</div>';//.list-group-item
 	  content+='</div>'; //.list-group

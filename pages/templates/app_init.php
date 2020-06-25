@@ -4,7 +4,7 @@ $PROJECT_URL = 'http://localhost/cB/';
 $PROTOCOL = (isset($_SERVER['HTTPS'])&&$_SERVER['HTTPS']==='on'?"https":"http");
 $PAGE_URL = $PROTOCOL."://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; 
 $PAGE_PATH = str_replace($PROJECT_URL,'',$PAGE_URL);
-
+$PAGE_ACCPERMISSIONS = '';
 /* User Account Info */
 $ADMIN_ACCOUNT_ROLENAME = '';  if(isset($_SESSION["ADMIN_ACCOUNT_ROLENAME"])){ $ADMIN_ACCOUNT_ROLENAME = $_SESSION["ADMIN_ACCOUNT_ROLENAME"]; }
 
@@ -25,10 +25,11 @@ function accessPermissions($topicName,$crud){
    if ($result === FALSE) { /* Handle error */ }
    else {
 	    $result = json_decode($result);
+		$GLOBALS['PAGE_ACCPERMISSIONS'] = $result;
 		for($index=0;$index<count($result);$index++){
-		  $topcName = $result[$index]->{'topcName'};
+		  $topcName = $result->{'pages'}[$index]->{'topcName'};
 		  if($topicName == $topcName){
-			  $result = $result[$index]->{$crud};
+			  $result = $result->{'pages'}[$index]->{$crud};
 			  break;
 		  }
 		}

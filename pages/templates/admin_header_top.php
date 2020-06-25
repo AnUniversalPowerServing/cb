@@ -260,42 +260,23 @@ textarea { min-height:100px; }
                             </div>
                             <!-- /input-group -->
                         </li>
-                        <li>
+						<li>
                             <a href="<?php echo $PROJECT_URL.'admin/manage/dashboard'; ?>"><i class="fa fa-dashboard fa-fw"></i> <b>Dashboard</b></a>
                         </li>
-						<li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> <b>Manage Accounts</b><span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-								<li>
-                                    <a href="<?php echo $PROJECT_URL.'admin/manage/accounts'; ?>">User Accounts</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo $PROJECT_URL.'admin/manage/roles'; ?>">User Roles</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo $PROJECT_URL.'admin/manage/modPages'; ?>">Modules and Pages</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-						<li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> <b>Developers</b><span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-								<li>
-                                    <a href="<?php echo $PROJECT_URL.'dev/app/config'; ?>">App Config</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-						<li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> <b>App Marketing</b><span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-								<li>
-                                    <a href="<?php echo $PROJECT_URL; ?>mrkt/app/future-customers">Future Customers</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
+						<?php
+						 foreach($PAGE_ACCPERMISSIONS->{'menu'} as $module => $moduleInfo){
+							$content='<li>';
+							$content.='<a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> <b>'.$module.'</b><span class="fa arrow"></span></a>';
+							$content.='<ul class="nav nav-second-level">';
+						  for($index=0;$index<count($moduleInfo);$index++){
+							$pageName = $moduleInfo[$index]->{'pageName'};
+							$pagePath = $moduleInfo[$index]->{'pagePath'};
+							$content.='<li><a href="'.$PROJECT_URL.$pagePath.'">'.$pageName.'</a></li>';
+						  }	  
+						  $content.='</ul>';
+						  echo $content;
+						 }
+						?>
 						<li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Customer Support<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">

@@ -13,8 +13,27 @@
 	  $role  = $_POST["role"];
 	  $pagePath = $_POST["pagePath"];
 	  $adminAccountMod = new AdminAccountMod();
-	  $query = $adminAccountMod->query_view_userAccessPermissions($role,$pagePath);
-	  echo $database->getJSONData($query);
+	  $query1 = $adminAccountMod->query_view_userAccessPermissions($role,$pagePath);
+	  $jsonData1 = json_decode($database->getJSONData($query1));
+	  $query2 = $adminAccountMod->query_view_userAccessMenu($role);
+	  $jsonData2 = json_decode($database->getJSONData($query2));
+	  if(count($jsonData2)>0){
+		$modules = array();
+		for($index=0;$index<count($jsonData2);$index++){
+		  $moduleName = $jsonData2[$index]->{'moduleName'};
+		  $pageName = $jsonData2[$index]->{'pageName'};
+		  $pagePath = $jsonData2[$index]->{'pagePath'};
+		  $pages = array();
+		  $pages["pageName"]=$pageName;
+		  $pages["pagePath"]=$pagePath;
+		  if(!isset($modules[$moduleName])){  $modules[$moduleName]= array(); }
+		  array_push($modules[$moduleName],$pages);
+		}
+		$accPerm = array();
+		$accPerm["menu"] = $modules;
+		$accPerm["pages"] = $jsonData1;
+	    echo json_encode($accPerm);
+	  }
 	 } else {
 		$missParam = '';
 		if(!isset($_POST["role"])){ $missParam.='role,'; }

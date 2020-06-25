@@ -8,5 +8,12 @@
 	$sql.="admin_mod_pages.pagePath='".$pagePath."';";
    return $sql;
   }
+  function query_view_userAccessMenu($role){
+	$sql="SELECT moduleName, pageName, pagePath FROM admin_mod_pages WHERE pageName IN ";
+	$sql.="(SELECT DISTINCT(pageName) FROM admin_mod_topc WHERE topcName IN ";
+	$sql.="(SELECT topcName FROM admin_mod_access_perm WHERE role='".$role."' AND (C='Y' OR R='Y' OR U='Y' OR D='Y'))) ";
+	$sql.="ORDER BY moduleName DESC;";
+	return $sql;
+  }
  }
 ?>
