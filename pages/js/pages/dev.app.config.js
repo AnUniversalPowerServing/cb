@@ -49,7 +49,9 @@ class DevAppConfigUI {
 		  content+='<td><b>Parameter Name</b></td>';
 		  content+='<td><b>Paramter Value</b></td>';
 		  content+='<td><b>Description</b></td>';
+		  if(PANEL_TOPIC_APPCONFIG_UPDATE==='Y' || PANEL_TOPIC_APPCONFIG_DELETE==='Y'){
 		  content+='<td><b>Actions</b></td>';
+		  }
 		  content+='</tr>';
 		  content+='</thead>';
 		  content+='<tbody>';
@@ -74,6 +76,7 @@ class DevAppConfigUI {
 		  content+='placeholder="Enter Parameter Desc">'+response[index].paramDesc+'</textarea>';
 		  content+='</div>';
 		  content+='</td>';
+		  if(PANEL_TOPIC_APPCONFIG_UPDATE==='Y' || PANEL_TOPIC_APPCONFIG_DELETE==='Y'){
 		  content+='<td>';
 		  if(PANEL_TOPIC_APPCONFIG_UPDATE==='Y'){
 		  content+='<i id="'+manage_devAppConfig_htmlElements.manage_devAppConfig_view_actionsEdit_+index+'" class="fa fa-edit curpoint" ';
@@ -84,6 +87,7 @@ class DevAppConfigUI {
 		  if(PANEL_TOPIC_APPCONFIG_DELETE==='Y'){
 		  content+='<i class="fa fa-close curpoint" ';
 		  content+='onclick="javascript:devAppConfigUI.ui_devAppConfig_deleteConfirmForm(\''+manage_devAppConfig_htmlElements.manage_devAppConfig_deleteExistingParamModal+'\','+index+');"></i>';
+		  }
 		  content+='</td>';
 		  }
 		  content+='</tr>';

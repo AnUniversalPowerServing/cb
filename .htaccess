@@ -21,6 +21,9 @@ RewriteRule admin/account/roles backend/php/dac/controller.admin.accounts.roles.
 RewriteRule admin/account/role/delete backend/php/dac/controller.admin.accounts.roles.php?action=ADMIN_AUTH_DELETEROLE [L,QSA]
 RewriteRule admin/account/role/update backend/php/dac/controller.admin.accounts.roles.php?action=ADMIN_AUTH_UPDATEROLE [L,QSA]
 
+# Modules and Pages
+RewriteRule admin/module/access/page backend/php/dac/controller.admin.accounts.mod.php?action=ADMIN_MODULE_PAGEACCESS [L,QSA]
+
 # App Configuration
 RewriteRule admin/app/config/view/([^/]+)$ backend/php/dac/controller.dev.app.config.php?action=APP_PROPERTY_VIEW&key=$1 [L,QSA]
 RewriteRule admin/app/config/update/([^/]+)$ backend/php/dac/controller.dev.app.config.php?action=APP_PROPERTY_UPDATE&key=$1 [L,QSA]

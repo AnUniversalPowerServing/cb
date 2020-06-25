@@ -14,60 +14,21 @@
 		 $userName = $_POST["userName"];
 		 $acc_pwd = md5($_POST["acc_pwd"]);
 		 $adminAccountAuth = new AdminAccountAuth();
-		 $query1 = $adminAccountAuth->query_view_userAccountLogin($userName,$acc_pwd);
+		 $query = $adminAccountAuth->query_view_userAccountLogin($userName,$acc_pwd);
 		 $database = new Database($DB_MLHBASIC_SERVERNAME,$DB_MLHBASIC_NAME,$DB_MLHBASIC_USER,$DB_MLHBASIC_PASSWORD);
-	     $jsonData1 = json_decode($database->getJSONData($query1));
-		 if(count($jsonData1)>0){
-			$role = $jsonData1[0]->{'role'};
-			$query2 = $adminAccountAuth->query_view_userAccessPermissions($role);
-			$jsonData2 = json_decode($database->getJSONData($query2));
-			$module = array();
-			if(count($jsonData2)>0){
-				for($index=0;$index<count($jsonData2);$index++){
-					$perm_Id = $jsonData2[$index]->{'perm_Id'};
-					$topcName = $jsonData2[$index]->{'topcName'};
-					$role = $jsonData2[$index]->{'role'};
-					$c = $jsonData2[$index]->{'C'};
-					$r = $jsonData2[$index]->{'R'};
-					$u = $jsonData2[$index]->{'U'};
-					$d = $jsonData2[$index]->{'D'};
-					$pageName = $jsonData2[$index]->{'pageName'};
-					$topicDesc = $jsonData2[$index]->{'topicDesc'};
-					$moduleName = $jsonData2[$index]->{'moduleName'};
-					$moduleDesc = $jsonData2[$index]->{'moduleDesc'};
-					$pageURL = $jsonData2[$index]->{'pageURL'};
-					$permInfo = array();
-					$topcInfo = array();
-					$pageInfo = array();
-					$page = array();
-					$permInfo["perm_Id"]=$perm_Id;
-					$permInfo["C"] = $c;
-					$permInfo["R"] = $r;
-					$permInfo["U"] = $u;
-					$permInfo["D"] = $d;	
-					$topcInfo[$topcName] = $permInfo;	
-					$topcInfo["pageURL"] = $pageURL;	
-					$pageInfo["topic"] = $topcInfo;
-					$page[$pageName] = $pageInfo;
-					$moduleInfo = array();
-					$moduleInfo["moduleDesc"] = $moduleDesc;
-					$moduleInfo["pages"] = $page;
-					$module[$moduleName] = $moduleInfo;
-				}
-			}
-			$_SESSION["ADMIN_ACCOUNT_USERID"] = $jsonData1[0]->{'account_Id'};
-			$_SESSION["ADMIN_ACCOUNT_ROLEID"] = $role;
-			$_SESSION["ADMIN_ACCOUNT_ROLENAME"] = $jsonData1[0]->{'role'};
-			$_SESSION["ADMIN_ACCOUNT_SURNAME"] = $jsonData1[0]->{'surName'};
-			$_SESSION["ADMIN_ACCOUNT_NAME"] = $jsonData1[0]->{'name'};
-			$_SESSION["ADMIN_ACCOUNT_GENDER"] = $jsonData1[0]->{'gender'};
-			$_SESSION["ADMIN_ACCOUNT_EMAIL"] = $jsonData1[0]->{'email'};
-			$_SESSION["ADMIN_ACCOUNT_MOBCODE"] = $jsonData1[0]->{'mob_code'};
-			$_SESSION["ADMIN_ACCOUNT_MOBILE"] = $jsonData1[0]->{'mobile'};
-			$_SESSION["ADMIN_ACCOUNT_USERNAME"] = $jsonData1[0]->{'userName'};
-			$_SESSION["ADMIN_ACCOUNT_ACTIVE"] = $jsonData1[0]->{'acc_active'};
-			$_SESSION["ADMIN_ACCOUNT_CREATEDON"] = $jsonData1[0]->{'createdOn'};
-			$_SESSION["ADMIN_ACCOUNT_ACCPERMISSIONS"] = json_encode($module); 
+	     $jsonData = json_decode($database->getJSONData($query));
+		 if(count($jsonData)>0){
+			$_SESSION["ADMIN_ACCOUNT_USERID"] = $jsonData[0]->{'account_Id'};
+			$_SESSION["ADMIN_ACCOUNT_ROLENAME"] = $jsonData[0]->{'role'};
+			$_SESSION["ADMIN_ACCOUNT_SURNAME"] = $jsonData[0]->{'surName'};
+			$_SESSION["ADMIN_ACCOUNT_NAME"] = $jsonData[0]->{'name'};
+			$_SESSION["ADMIN_ACCOUNT_GENDER"] = $jsonData[0]->{'gender'};
+			$_SESSION["ADMIN_ACCOUNT_EMAIL"] = $jsonData[0]->{'email'};
+			$_SESSION["ADMIN_ACCOUNT_MOBCODE"] = $jsonData[0]->{'mob_code'};
+			$_SESSION["ADMIN_ACCOUNT_MOBILE"] = $jsonData[0]->{'mobile'};
+			$_SESSION["ADMIN_ACCOUNT_USERNAME"] = $jsonData[0]->{'userName'};
+			$_SESSION["ADMIN_ACCOUNT_ACTIVE"] = $jsonData[0]->{'acc_active'};
+			$_SESSION["ADMIN_ACCOUNT_CREATEDON"] = $jsonData[0]->{'createdOn'};
 			echo $successErrorHandler->successErrorInfo($GLOBALS["APP_MSG_SUCCESS"], "Account Authenticated Successfully");
 		 } else {
 			echo $successErrorHandler->successErrorInfo($GLOBALS["APP_MSG_ERROR"], "Account not Authenticated Successfully");	

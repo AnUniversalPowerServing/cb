@@ -1,3 +1,14 @@
+<?php 
+include_once 'templates/app_init.php';
+if(isset($_SESSION["ADMIN_ACCOUNT_ROLENAME"])){
+ $PANEL_MODULE = 'Developer';
+ $PANEL_PAGE = 'App Config';
+ $PANEL_TOPIC_APPCONFIG = 'Application Configuration';
+ $PANEL_TOPIC_APPCONFIG_CREATE = accessPermissions($PANEL_TOPIC_APPCONFIG,'C');
+ $PANEL_TOPIC_APPCONFIG_READ = accessPermissions($PANEL_TOPIC_APPCONFIG,'R');
+ $PANEL_TOPIC_APPCONFIG_UPDATE = accessPermissions($PANEL_TOPIC_APPCONFIG,'U');
+ $PANEL_TOPIC_APPCONFIG_DELETE = accessPermissions($PANEL_TOPIC_APPCONFIG,'D');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,16 +18,6 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <title>App Config</title>
-  <?php include_once 'templates/app_init.php'; ?>
-  <?php
-	 $PANEL_MODULE = 'Developer';
-	 $PANEL_PAGE = 'App Config';
-	 $PANEL_TOPIC_APPCONFIG = 'Application Configuration';
-	 $PANEL_TOPIC_APPCONFIG_CREATE = accPermission($PANEL_MODULE,$PANEL_PAGE,$PANEL_TOPIC_APPCONFIG,'C');
-	 $PANEL_TOPIC_APPCONFIG_READ = accPermission($PANEL_MODULE,$PANEL_PAGE,$PANEL_TOPIC_APPCONFIG,'R');
-	 $PANEL_TOPIC_APPCONFIG_UPDATE = accPermission($PANEL_MODULE,$PANEL_PAGE,$PANEL_TOPIC_APPCONFIG,'U');
-	 $PANEL_TOPIC_APPCONFIG_DELETE = accPermission($PANEL_MODULE,$PANEL_PAGE,$PANEL_TOPIC_APPCONFIG,'D');
-  ?>
   <link href="<?php echo $PROJECT_URL ?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="<?php echo $PROJECT_URL ?>vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
   <link href="<?php echo $PROJECT_URL ?>vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
@@ -126,3 +127,4 @@
 </body>
 
 </html>
+<?php } else { header("Location:".$PROJECT_URL.'admin/auth'); } ?>
