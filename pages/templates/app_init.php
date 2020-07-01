@@ -7,8 +7,8 @@ $PAGE_PATH = str_replace($PROJECT_URL,'',$PAGE_URL);
 $PAGE_ACCPERMISSIONS = '';
 /* User Account Info */
 $ADMIN_ACCOUNT_ROLENAME = '';  if(isset($_SESSION["ADMIN_ACCOUNT_ROLENAME"])){ $ADMIN_ACCOUNT_ROLENAME = $_SESSION["ADMIN_ACCOUNT_ROLENAME"]; }
-
-function accessPermissions($topicName,$crud){
+loadPermissions();
+function loadPermissions(){
  $result = 'CURL_NOT_ENABLED';
  if(function_exists('curl_version')){
   $url = $GLOBALS['PROJECT_URL'].'admin/module/access/page';
@@ -26,16 +26,11 @@ function accessPermissions($topicName,$crud){
    else {
 	    $result = json_decode($result);
 		$GLOBALS['PAGE_ACCPERMISSIONS'] = $result;
-		for($index=0;$index<count($result);$index++){
-		  $topcName = $result->{'pages'}[$index]->{'topcName'};
-		  if($topicName == $topcName){
-			  $result = $result->{'pages'}[$index]->{$crud};
-			  break;
-		  }
-		}
    }
- }
- return $result;
+}
+}
+function accessPermissions($topicName,$crud){
+ return $GLOBALS['PAGE_ACCPERMISSIONS']->{'pages'}->{$GLOBALS['PAGE_PATH']}->{"topics"}->{$topicName}->{$crud};
 }
 ?>
 <script type="text/javascript">

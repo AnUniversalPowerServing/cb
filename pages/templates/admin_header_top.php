@@ -268,11 +268,11 @@ textarea { min-height:100px; }
 							$content='<li>';
 							$content.='<a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> <b>'.$module.'</b><span class="fa arrow"></span></a>';
 							$content.='<ul class="nav nav-second-level">';
-						  for($index=0;$index<count($moduleInfo);$index++){
-							$pageName = $moduleInfo[$index]->{'pageName'};
-							$pagePath = $moduleInfo[$index]->{'pagePath'};
-							$content.='<li><a href="'.$PROJECT_URL.$pagePath.'">'.$pageName.'</a></li>';
-						  }	  
+							 for($index=0;$index<count($moduleInfo);$index++){
+							   foreach($moduleInfo[$index] as $pageName => $pagePath){
+								 $content.='<li><a href="'.$PROJECT_URL.$pagePath.'">'.$pageName.'</a></li>';
+							   }  
+							 }
 						  $content.='</ul>';
 						  echo $content;
 						 }

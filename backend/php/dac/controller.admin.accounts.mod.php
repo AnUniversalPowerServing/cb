@@ -13,25 +13,50 @@
 	  $role  = $_POST["role"];
 	  $pagePath = $_POST["pagePath"];
 	  $adminAccountMod = new AdminAccountMod();
-	  $query1 = $adminAccountMod->query_view_userAccessPermissions($role,$pagePath);
+	  $query1 = $adminAccountMod->query_view_userAccessMenu($role);
 	  $jsonData1 = json_decode($database->getJSONData($query1));
-	  $query2 = $adminAccountMod->query_view_userAccessMenu($role);
-	  $jsonData2 = json_decode($database->getJSONData($query2));
-	  if(count($jsonData2)>0){
+	  if(count($jsonData1)>0){
+		$menu = array();
 		$modules = array();
-		for($index=0;$index<count($jsonData2);$index++){
-		  $moduleName = $jsonData2[$index]->{'moduleName'};
-		  $pageName = $jsonData2[$index]->{'pageName'};
-		  $pagePath = $jsonData2[$index]->{'pagePath'};
+		for($index1=0;$index1<count($jsonData1);$index1++){
+		  $moduleName = $jsonData1[$index1]->{'moduleName'};
+		  $pageName = $jsonData1[$index1]->{'pageName'};
+		  $pagePath = $jsonData1[$index1]->{'pagePath'};
+		  
+		  $query2 = $adminAccountMod->query_view_userAccessPermissions($role,$pagePath);
+		  $jsonData2 = json_decode($database->getJSONData($query2));
+		  $topics = array();
+		  if(count($jsonData2)>0){
+		    for($index2=0;$index2<count($jsonData2);$index2++){
+			  $topcName = $jsonData2[$index2]->{'topcName'};
+			  $topicDesc = $jsonData2[$index2]->{'topicDesc'};
+			  $C = $jsonData2[$index2]->{'C'};
+			  $R = $jsonData2[$index2]->{'R'};
+			  $U = $jsonData2[$index2]->{'U'};
+			  $D = $jsonData2[$index2]->{'D'};
+			  $topic = array();
+			  $topic["topicDesc"]=$topicDesc;
+			  $topic["C"]=$C;
+			  $topic["R"]=$R;
+			  $topic["U"]=$U;
+			  $topic["D"]=$D;
+			  $topics[$topcName]=$topic;
+		    }
+		  }
 		  $pages = array();
 		  $pages["pageName"]=$pageName;
-		  $pages["pagePath"]=$pagePath;
-		  if(!isset($modules[$moduleName])){  $modules[$moduleName]= array(); }
-		  array_push($modules[$moduleName],$pages);
+		  $pages["moduleName"] = $moduleName;
+		  $pages["topics"] = $topics;
+		  $modules[$pagePath] = $pages;
+		  
+		  $menuList = array();
+		  $menuList[$pageName] = $pagePath;
+		  if(!isset($menu[$moduleName])){  $menu[$moduleName]= array(); }
+		  array_push($menu[$moduleName],$menuList);
 		}
 		$accPerm = array();
-		$accPerm["menu"] = $modules;
-		$accPerm["pages"] = $jsonData1;
+		$accPerm["menu"] = $menu;
+		$accPerm["pages"] = $modules;
 	    echo json_encode($accPerm);
 	  }
 	 } else {
